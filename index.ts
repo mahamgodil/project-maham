@@ -27,12 +27,13 @@ program
   });
 
 program
-  .command('<URL_FILE>')
-  .description('Analyzes provided URLs')
+  .arguments('<URL_FILE>')
   .action((URL_FILE) => {
-    // Here you can do function call
+    if (!URL_FILE) {
+      console.error("Error: URL_FILE argument is required.");
+      process.exit(1);
+    }
     analyze.testDependencies(URL_FILE);
-
     process.exit(0);
   });
 
