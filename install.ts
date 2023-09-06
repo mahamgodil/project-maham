@@ -1,5 +1,13 @@
+const { execSync } = require('child_process');
+
 export function installDependencies() {
-    // Function
-    console.log("Dependencies installed");
-    process.exit(0);
+    try {
+        console.log("Installing dependencies...");
+        execSync('npm install', { stdio: 'inherit' });
+        console.log("Dependencies installed successfully");
+        process.exit(0);
+    } catch (error) {
+        console.log("Dependency installation failed:");
+        process.exit(1);
+    }
 }

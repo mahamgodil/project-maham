@@ -23,6 +23,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "commander": "^11.0.0"
+    "commander": "^11.0.0",
+    "package-name": "^0.1.0"
   }
 }
