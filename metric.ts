@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const token = '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';
+const token = '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';
 const repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
 
 // Authenticate with GitHub
 const headers = {
-  Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
 };
 
 async function getNumOfSigContrib() {
@@ -38,4 +38,31 @@ async function getNumOfSigContrib() {
   }
 }
 
+async function checkRepoLicense() {
+    try {
+        const repositoryResponse = await axios.get(repositoryUrl, { headers });
+        const repositoryData = repositoryResponse.data;
+
+        const licenseUrl = repositoryUrl + "/license";
+        const LicenseResponse = await axios.get(licenseUrl);
+  
+        // If the repository has a license, the response status will be 200 OK.
+        // If the repository does not have a license, the response status will be 404 Not Found.
+        if (LicenseResponse.status === 200) {
+            console.log('The repository has a license.');
+        }
+        else {
+            console.log(`Unexpected response status: ${LicenseResponse.status}`);
+        }
+    } catch (error:any) {
+        if (error.response.status === 404) {
+            console.log('The repository does not have a license.');
+        } 
+        else {
+            console.log(`Unexpected response status: ${error.response.status}`);
+        }
+    }
+  }
+
 getNumOfSigContrib();
+checkRepoLicense();

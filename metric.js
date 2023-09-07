@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
-var token = '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';
+var token = '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';
 var repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
 // Authenticate with GitHub
 var headers = {
@@ -77,4 +77,43 @@ function getNumOfSigContrib() {
         });
     });
 }
+function checkRepoLicense() {
+    return __awaiter(this, void 0, void 0, function () {
+        var repositoryResponse, repositoryData, licenseUrl, LicenseResponse, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, axios_1.default.get(repositoryUrl, { headers: headers })];
+                case 1:
+                    repositoryResponse = _a.sent();
+                    repositoryData = repositoryResponse.data;
+                    licenseUrl = repositoryUrl + "/license";
+                    return [4 /*yield*/, axios_1.default.get(licenseUrl)];
+                case 2:
+                    LicenseResponse = _a.sent();
+                    // If the repository has a license, the response status will be 200 OK.
+                    // If the repository does not have a license, the response status will be 404 Not Found.
+                    if (LicenseResponse.status === 200) {
+                        console.log('The repository has a license.');
+                    }
+                    else {
+                        console.log("Unexpected response status: ".concat(LicenseResponse.status));
+                    }
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_2 = _a.sent();
+                    if (error_2.response.status === 404) {
+                        console.log('The repository does not have a license.');
+                    }
+                    else {
+                        console.log("Unexpected response status: ".concat(error_2.response.status));
+                    }
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+}
 getNumOfSigContrib();
+checkRepoLicense();
