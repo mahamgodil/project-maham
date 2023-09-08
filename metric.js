@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -43,6 +54,9 @@ var repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // mus
 var headers = {
     Authorization: "Bearer ".concat(token),
 };
+getNumOfSigContrib();
+checkRepoLicense();
+getClosedBugs();
 function getNumOfSigContrib() {
     return __awaiter(this, void 0, void 0, function () {
         var repositoryResponse, repositoryData, totalCommits, contributorsUrl, contributorsResponse, contributorsData, significantContributors, error_1;
@@ -115,5 +129,63 @@ function checkRepoLicense() {
         });
     });
 }
-getNumOfSigContrib();
-checkRepoLicense();
+function getClosedBugs(page) {
+    if (page === void 0) { page = 1; }
+    return __awaiter(this, void 0, void 0, function () {
+        // Function to recursively fetch all issues
+        function fetchAllIssues(page) {
+            if (page === void 0) { page = 1; }
+            return __awaiter(this, void 0, void 0, function () {
+                var response, issues, linkHeader, nextPage, bugPercentage, error_3;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 5, , 6]);
+                            return [4 /*yield*/, axios_1.default.get(issuesUrl, { params: __assign(__assign({}, params), { page: page }), headers: headers })];
+                        case 1:
+                            response = _a.sent();
+                            issues = response.data;
+                            totalIssues += issues.length;
+                            totalClosedIssues += issues.filter(function (issue) { return issue.state === 'closed'; }).length;
+                            linkHeader = response.headers.link;
+                            if (!(linkHeader && linkHeader.includes('rel="next"'))) return [3 /*break*/, 3];
+                            nextPage = page + 1;
+                            return [4 /*yield*/, fetchAllIssues(nextPage)];
+                        case 2:
+                            _a.sent();
+                            return [3 /*break*/, 4];
+                        case 3:
+                            bugPercentage = (totalClosedIssues / totalIssues) * 100;
+                            console.log("Percentage of closed bug issues: ".concat(bugPercentage.toFixed(2), "%"));
+                            _a.label = 4;
+                        case 4: return [3 /*break*/, 6];
+                        case 5:
+                            error_3 = _a.sent();
+                            console.error('Error making API request:', error_3);
+                            return [3 /*break*/, 6];
+                        case 6: return [2 /*return*/];
+                    }
+                });
+            });
+        }
+        var repositoryResponse, repositoryData, issuesUrl, params, totalIssues, totalClosedIssues;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios_1.default.get(repositoryUrl, { headers: headers })];
+                case 1:
+                    repositoryResponse = _a.sent();
+                    repositoryData = repositoryResponse.data;
+                    issuesUrl = repositoryUrl + "/issues?state=all";
+                    params = {
+                        state: 'all',
+                        per_page: 100,
+                        page: 1, // Start with page 1
+                    };
+                    totalIssues = 0;
+                    totalClosedIssues = 0;
+                    fetchAllIssues();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}

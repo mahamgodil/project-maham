@@ -8,6 +8,10 @@ const headers = {
     Authorization: `Bearer ${token}`,
 };
 
+getNumOfSigContrib();
+checkRepoLicense();
+getClosedBugs();
+
 async function getNumOfSigContrib() {
   try {
     // Fetch repository information
@@ -39,30 +43,68 @@ async function getNumOfSigContrib() {
 }
 
 async function checkRepoLicense() {
-    try {
-        const repositoryResponse = await axios.get(repositoryUrl, { headers });
-        const repositoryData = repositoryResponse.data;
+  try {
+    const repositoryResponse = await axios.get(repositoryUrl, { headers });
+    const repositoryData = repositoryResponse.data;
 
-        const licenseUrl = repositoryUrl + "/license";
-        const LicenseResponse = await axios.get(licenseUrl);
+    const licenseUrl = repositoryUrl + "/license";
+    const LicenseResponse = await axios.get(licenseUrl);
   
-        // If the repository has a license, the response status will be 200 OK.
-        // If the repository does not have a license, the response status will be 404 Not Found.
-        if (LicenseResponse.status === 200) {
-            console.log('The repository has a license.');
-        }
-        else {
-            console.log(`Unexpected response status: ${LicenseResponse.status}`);
-        }
-    } catch (error:any) {
-        if (error.response.status === 404) {
-            console.log('The repository does not have a license.');
-        } 
-        else {
-            console.log(`Unexpected response status: ${error.response.status}`);
-        }
+    // If the repository has a license, the response status will be 200 OK.
+    // If the repository does not have a license, the response status will be 404 Not Found.
+    if (LicenseResponse.status === 200) {
+      console.log('The repository has a license.');
+    }
+    else {
+      console.log(`Unexpected response status: ${LicenseResponse.status}`);
+    }
+  } catch (error:any) {
+    if (error.response.status === 404) {
+      console.log('The repository does not have a license.');
+    } 
+    else {
+      console.log(`Unexpected response status: ${error.response.status}`);
+    }
+  }
+}
+
+async function getClosedBugs(page: number = 1) {
+  const repositoryResponse = await axios.get(repositoryUrl, { headers });
+  const repositoryData = repositoryResponse.data;
+
+  const issuesUrl = repositoryUrl + "/issues?state=all";
+
+  const params = {
+    state: 'all',
+    per_page: 100, // Increase this value to retrieve more issues per page
+    page: 1, // Start with page 1
+  };
+  let totalIssues = 0;
+  let totalClosedIssues = 0;
+
+  // Function to recursively fetch all issues
+  async function fetchAllIssues(page: number = 1) {
+    try {
+      const response = await axios.get(issuesUrl, { params: { ...params, page }, headers });
+      const issues = response.data;
+      totalIssues += issues.length;
+      totalClosedIssues += issues.filter((issue: any) => issue.state === 'closed').length;
+
+      // Fetch the next page if available
+      const linkHeader = response.headers.link;
+      if (linkHeader && linkHeader.includes('rel="next"')) {
+        const nextPage = page + 1;
+        await fetchAllIssues(nextPage);
+      } else {
+        // All issues have been fetched, display the results
+        const bugPercentage = (totalClosedIssues / totalIssues) * 100;
+        console.log(`Percentage of closed bug issues: ${bugPercentage.toFixed(2)}%`);
+      }
+    } catch (error) {
+      console.error('Error making API request:', error);
     }
   }
 
-getNumOfSigContrib();
-checkRepoLicense();
+  fetchAllIssues();
+
+}
