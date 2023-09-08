@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = require("axios");
-var token = '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';
+var token = process.env.GITHUB_API_TOKEN;
 var repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
 // Authenticate with GitHub
 var headers = {
