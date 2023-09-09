@@ -2,9 +2,9 @@ import fs from 'fs';
 import axios from 'axios';
 
 export async function testDependencies(URL_FILE: string) {
-    console.log('in testDependencies');
+    // console.log('in testDependencies');
     try {
-        console.log('in try, URL_FILE: ' + URL_FILE);
+        // console.log('in try, URL_FILE: ' + URL_FILE);
         const urls = fs.readFileSync(URL_FILE, 'utf-8').split('\n').filter(Boolean);
 
         for (const url of urls) {
@@ -14,7 +14,7 @@ export async function testDependencies(URL_FILE: string) {
                 if (!packageName) {
                     throw new Error(`Invalid URL: ${url}`);
                 }
-                console.log('in if, packageName: ' + packageName);
+                // console.log('in if, packageName: ' + packageName);
                 const data = await fetchNpmDataWithAxios(packageName);
                 // console.log('in if, data:', JSON.stringify(data, null, 2));
 
@@ -32,8 +32,33 @@ export async function testDependencies(URL_FILE: string) {
 
                 // console.log(JSON.stringify(scores));
             } else if (url.includes('github.com')) {
-                //TODO GitHub stuff in here
-                console.log('GitHub stuff in here to do');
+                const data = await fetchGitHubDataWithAxios(url);
+
+                // Your scoring logic for GitHub data will be here
+                // (It's up to you how to derive these metrics from the GitHub data)
+                
+                // const scores = {
+                //     URL: url,
+                //     NetScore: calculateGitHubNetScore(data),
+                //     RampUp: calculateGitHubRampUpScore(data),
+                //     Correctness: calculateGitHubCorrectnessScore(data),
+                //     BusFactor: calculateGitHubBusFactorScore(data),
+                //     ResponsiveMaintainer: calculateGitHubResponsiveMaintainerScore(data),
+                //     License: calculateGitHubLicenseScore(data)
+                // };
+
+                // TODO: Implement GitHub scoring logic
+                const scores = {
+                    URL: url,
+                    NetScore: 0.5,
+                    RampUp: 0.5,
+                    Correctness: 0.5,
+                    BusFactor: 0.5,
+                    ResponsiveMaintainer: 0.5,
+                    License: 0.5
+                };
+            
+                console.log('GitHub scores:', JSON.stringify(scores, null, 2));
             }
         }
 
@@ -57,10 +82,20 @@ export async function testDependencies(URL_FILE: string) {
 //   }
   
 
-
+async function fetchGitHubDataWithAxios(repositoryUrl: string) {
+    const [, , , user, repo] = repositoryUrl.split('/');
+    const endpoint = `https://api.github.com/repos/${user}/${repo}`;
+    try {
+        const response = await axios.get(endpoint);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data for:', repositoryUrl, error);
+        throw error;
+    }
+}
 
 async function fetchNpmDataWithAxios(packageName: string) {
-    console.log('Starting fetchNpmDataWithAxios for:', packageName);
+    // console.log('Starting fetchNpmDataWithAxios for:', packageName);
     const endpoint = `https://registry.npmjs.org/${packageName}`;
     console.log('endpoint:', endpoint);
     try {
@@ -76,12 +111,12 @@ async function fetchNpmDataWithAxios(packageName: string) {
 
 
 function calculateNetScore(data: any): number {
-    console.log('in calculateNetScore');
+    // console.log('in calculateNetScore');
     return 0.5; //! Placeholder
 }
 
 function calculateRampUpScore(data: any): number {
-    console.log('in calculateRampUpScore');
+    // console.log('in calculateRampUpScore');
     const currentDate = new Date().getTime();
     const packageDate = new Date(data.time.created).getTime();
     const age = currentDate - packageDate;
@@ -90,18 +125,18 @@ function calculateRampUpScore(data: any): number {
 
 function calculateCorrectnessScore(data: any): number {
     // !Placeholder
-    console.log('in calculateCorrectnessScore');
+    // console.log('in calculateCorrectnessScore');
     const downloads = data.versions[data['dist-tags'].latest].npm;
     return downloads > 1000000 ? 1 : downloads / 1000000;
 }
 
 function calculateBusFactorScore(data: any): number {
-    console.log('in calculateBusFactorScore');
+    // console.log('in calculateBusFactorScore');
     return Math.min(data.maintainers.length / 10, 1);
 }
 
 function calculateLicenseScore(data: any): number {
-    console.log('in calculateLicenseScore');
+    // console.log('in calculateLicenseScore');
     const recognizedLicenses = ['MIT', 'GPL', 'BSD', 'ISC', 'Apache-2.0'];
     return recognizedLicenses.includes(data.license) ? 1 : 0;
 }
