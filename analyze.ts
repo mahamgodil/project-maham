@@ -16,6 +16,7 @@ export async function testDependencies(URL_FILE: string) {
                 }
                 console.log('in if, packageName: ' + packageName);
                 console.log('Before fetching data with Axios');
+                // await example1WithFetch();
                 const data = await fetchNpmDataWithAxios(packageName);
                 console.log('After fetching data with Axios');
 
@@ -41,7 +42,7 @@ export async function testDependencies(URL_FILE: string) {
             }
         }
 
-        process.exit(0);
+        // process.exit(0);
     } catch (err) {
         console.error(err);
         console.error('Error occurred:', err);
@@ -50,12 +51,26 @@ export async function testDependencies(URL_FILE: string) {
     }
 }
 
+// async function example1WithFetch() {
+//     console.log('in example1WithFetch');
+//     const endpoint = "https://registry.npmjs.org/";
+//     const res = await axios.get(endpoint);
+//     console.log(res.data);
+//     console.log('Finished example1WithFetch');
+//     const data = await res.data;
+//     console.log(data);
+//   }
+  
+
+
 
 async function fetchNpmDataWithAxios(packageName: string) {
     console.log('Starting fetchNpmDataWithAxios for:', packageName);
     const endpoint = `https://registry.npmjs.org/${packageName}`;
+    console.log('endpoint:', endpoint);
     try {
-        const response = await axios.get(endpoint);
+        console.log('Before Axios call in fetchNpmDataWithAxios for:', packageName);
+        const response = await axios.get(endpoint, { timeout: 10000 });
         console.log('Finished Axios call in fetchNpmDataWithAxios for:', packageName);
         return response.data;
     } catch (error) {
