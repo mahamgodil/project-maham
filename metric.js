@@ -54,9 +54,10 @@ var repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // mus
 var headers = {
     Authorization: "Bearer ".concat(token),
 };
-getNumOfSigContrib();
-checkRepoLicense();
-getClosedBugs();
+//getNumOfSigContrib();
+//checkRepoLicense();
+//getClosedBugs();
+calcAvgResponse();
 function getNumOfSigContrib() {
     return __awaiter(this, void 0, void 0, function () {
         var repositoryResponse, repositoryData, totalCommits, contributorsUrl, contributorsResponse, contributorsData, significantContributors, error_1;
@@ -156,7 +157,7 @@ function getClosedBugs(page) {
                             return [3 /*break*/, 4];
                         case 3:
                             bugPercentage = (totalClosedIssues / totalIssues) * 100;
-                            console.log("Percentage of closed bug issues: ".concat(bugPercentage.toFixed(2), "%"));
+                            console.log("Percentage of closed issues: ".concat(bugPercentage.toFixed(2), "%"));
                             _a.label = 4;
                         case 4: return [3 /*break*/, 6];
                         case 5:
@@ -183,6 +184,96 @@ function getClosedBugs(page) {
                     };
                     totalIssues = 0;
                     totalClosedIssues = 0;
+                    fetchAllIssues();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function calcAvgResponse() {
+    return __awaiter(this, void 0, void 0, function () {
+        function fetchAllIssues(page) {
+            if (page === void 0) { page = 1; }
+            return __awaiter(this, void 0, void 0, function () {
+                var response, issues, _i, issues_1, issue, commentsEndpoint, response_1, comments, maintainerComments, firstMaintainerComment, createdAt, respondedAt, responseTime, error_4, linkHeader, nextPage, bugPercentage, error_5;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 11, , 12]);
+                            return [4 /*yield*/, axios_1.default.get(issuesUrl, { params: __assign(__assign({}, params), { page: page }), headers: headers })];
+                        case 1:
+                            response = _a.sent();
+                            issues = response.data;
+                            _i = 0, issues_1 = issues;
+                            _a.label = 2;
+                        case 2:
+                            if (!(_i < issues_1.length)) return [3 /*break*/, 7];
+                            issue = issues_1[_i];
+                            commentsEndpoint = issue.comments_url;
+                            console.log("".concat(totalResponseTime, ", ").concat(totalIssues));
+                            _a.label = 3;
+                        case 3:
+                            _a.trys.push([3, 5, , 6]);
+                            return [4 /*yield*/, axios_1.default.get(commentsEndpoint, { headers: headers })];
+                        case 4:
+                            response_1 = _a.sent();
+                            if (response_1.status === 200) {
+                                comments = response_1.data;
+                                maintainerComments = comments.filter(function (comment) { return comment.user.type === 'User'; });
+                                if (maintainerComments.length > 0) {
+                                    firstMaintainerComment = maintainerComments[0];
+                                    createdAt = new Date(issue.created_at);
+                                    respondedAt = new Date(firstMaintainerComment.created_at);
+                                    responseTime = respondedAt.getTime() - createdAt.getTime();
+                                    totalResponseTime += ((responseTime / 1000) / 60) / 60; // milliseconds to minutes to hours
+                                    totalIssues++;
+                                }
+                            }
+                            return [3 /*break*/, 6];
+                        case 5:
+                            error_4 = _a.sent();
+                            console.error('Error fetching comments for issue:', error_4);
+                            return [3 /*break*/, 6];
+                        case 6:
+                            _i++;
+                            return [3 /*break*/, 2];
+                        case 7:
+                            linkHeader = response.headers.link;
+                            if (!(linkHeader && linkHeader.includes('rel="next"'))) return [3 /*break*/, 9];
+                            nextPage = page + 1;
+                            return [4 /*yield*/, fetchAllIssues(nextPage)];
+                        case 8:
+                            _a.sent();
+                            return [3 /*break*/, 10];
+                        case 9:
+                            bugPercentage = totalResponseTime / totalIssues;
+                            console.log("Average response time of issues: ".concat(bugPercentage.toFixed(2)));
+                            _a.label = 10;
+                        case 10: return [3 /*break*/, 12];
+                        case 11:
+                            error_5 = _a.sent();
+                            console.error('Error making API request:', error_5);
+                            return [3 /*break*/, 12];
+                        case 12: return [2 /*return*/];
+                    }
+                });
+            });
+        }
+        var repositoryResponse, repositoryData, issuesUrl, params, totalIssues, totalResponseTime;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios_1.default.get(repositoryUrl, { headers: headers })];
+                case 1:
+                    repositoryResponse = _a.sent();
+                    repositoryData = repositoryResponse.data;
+                    issuesUrl = repositoryUrl + "/issues?state=all";
+                    params = {
+                        state: 'all',
+                        per_page: 100,
+                        page: 1, // Start with page 1
+                    };
+                    totalIssues = 0;
+                    totalResponseTime = 0;
                     fetchAllIssues();
                     return [2 /*return*/];
             }

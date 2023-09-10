@@ -8,9 +8,11 @@ const headers = {
     Authorization: `Bearer ${token}`,
 };
 
-getNumOfSigContrib();
-checkRepoLicense();
-getClosedBugs();
+//getNumOfSigContrib();
+//checkRepoLicense();
+//getClosedBugs();
+calcAvgResponse();
+//rampUp();
 
 async function getNumOfSigContrib() {
   try {
@@ -73,7 +75,6 @@ async function getClosedBugs(page: number = 1) {
   const repositoryData = repositoryResponse.data;
 
   const issuesUrl = repositoryUrl + "/issues?state=all";
-
   const params = {
     state: 'all',
     per_page: 100, // Increase this value to retrieve more issues per page
@@ -98,13 +99,74 @@ async function getClosedBugs(page: number = 1) {
       } else {
         // All issues have been fetched, display the results
         const bugPercentage = (totalClosedIssues / totalIssues) * 100;
-        console.log(`Percentage of closed bug issues: ${bugPercentage.toFixed(2)}%`);
+        console.log(`Percentage of closed issues: ${bugPercentage.toFixed(2)}%`);
       }
     } catch (error) {
       console.error('Error making API request:', error);
     }
   }
-
   fetchAllIssues();
+}
 
+async function calcAvgResponse() {
+  const repositoryResponse = await axios.get(repositoryUrl, { headers });
+  const repositoryData = repositoryResponse.data;
+
+  const issuesUrl = repositoryUrl + "/issues?state=all";
+  const params = {
+    state: 'all',
+    per_page: 100, // Increase this value to retrieve more issues per page
+    page: 1, // Start with page 1
+  };
+  let totalIssues = 0;
+  let totalResponseTime = 0;
+    
+  async function fetchAllIssues(page: number = 1) {
+    try {
+      const response = await axios.get(issuesUrl, { params: { ...params, page }, headers });
+      const issues = response.data;
+
+      for (const issue of issues) {
+        const commentsEndpoint = issue.comments_url;
+        console.log(`${totalResponseTime}, ${totalIssues}`);
+
+        try {
+          const response = await axios.get(commentsEndpoint, { headers });
+
+          if (response.status === 200) {
+            const comments = response.data;
+            const maintainerComments = comments.filter(
+              (comment: any) => comment.user.type === 'User');
+
+            if (maintainerComments.length > 0) {
+              const firstMaintainerComment = maintainerComments[0];
+              const createdAt = new Date(issue.created_at);
+              const respondedAt = new Date(firstMaintainerComment.created_at);
+              const responseTime = respondedAt.getTime() - createdAt.getTime();
+              totalResponseTime += ((responseTime / 1000) / 60) / 60; // milliseconds to minutes to hours
+              totalIssues++;
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching comments for issue:', error);
+        }
+      }
+        // Fetch the next page if available
+        const linkHeader = response.headers.link;
+        if (linkHeader && linkHeader.includes('rel="next"')) {
+          const nextPage = page + 1;
+          await fetchAllIssues(nextPage);
+        } else {
+          // All issues have been fetched, display the results
+          const bugPercentage = totalResponseTime / totalIssues;
+          console.log(`Average response time of issues: ${bugPercentage.toFixed(2)}`);
+        }
+    } catch (error) {
+      console.error('Error making API request:', error);
+    }
+  }
+  fetchAllIssues();
+}
+
+async function rampUp() {
 }
