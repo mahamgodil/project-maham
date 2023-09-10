@@ -24,6 +24,17 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "commander": "^11.0.0",
+    "package-name": "^0.1.0"
+=======
+    "axios": "^1.5.0",
+    "commander": "^11.0.0",
+    "node-fetch": "^2.7.0"
+>>>>>>> 73755c6e3c34f19565f1d253f0d45140f28fc1c6
+=======
     "commander": "^11.0.0"
+>>>>>>> d518d6c0c84b5a7613f439bc08bf10095926b58a
   }
 }
