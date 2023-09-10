@@ -28,13 +28,14 @@ program
 
 program
   .arguments('<URL_FILE>')
-  .action((URL_FILE) => {
+  .action(async (URL_FILE) => {
     if (!URL_FILE) {
       console.error("Error: URL_FILE argument is required.");
       process.exit(1);
     }
-    analyze.testDependencies(URL_FILE);
+    await analyze.testDependencies(URL_FILE);
     process.exit(0);
   });
+
 
 program.parse(process.argv);
