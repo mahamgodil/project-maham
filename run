@@ -1,2 +1,4 @@
 #!/bin/sh
-./node_modules/.bin/ts-node index.ts $@
+# ./node_modules/.bin/ts-node index.ts $@
+
+python3 cli.py $@
