@@ -1,12 +1,11 @@
 # FILEPATH: /Users/mateusz/Desktop/ECE_461/project-mateusz/index.py
 import argparse
 import subprocess
+import os
 
-def is_tool(name):
-    """Check whether `name` is on PATH."""
-    from shutil import which
-
-    return which(name) is not None
+def is_tool_local(name):
+    """Check whether `name` is in the local node_modules/.bin/ directory."""
+    return os.path.exists(os.path.join(os.getcwd(), 'node_modules', '.bin', name))
 
 parser = argparse.ArgumentParser(description='CLI tool for installing, testing and analyzing dependencies.')
 subparsers = parser.add_subparsers(dest='command')
