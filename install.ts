@@ -11,3 +11,7 @@ export function installDependencies() {
         process.exit(1);
     }
 }
+
+if (require.main === module) {
+    installDependencies();
+}
