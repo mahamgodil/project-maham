@@ -34,6 +34,7 @@ export async function analyzeDependencies(URL_FILE: string) {
                 // console.log(JSON.stringify(scores));
             } else if (url.includes('github.com')) {
                 const data = await fetchGitHubDataWithAxios(url);
+                // console.log('GitHub data:', JSON.stringify(data, null, 2));
 
                 // Your scoring logic for GitHub data will be here
                 // (It's up to you how to derive these metrics from the GitHub data)
