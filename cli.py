@@ -1,42 +1,51 @@
-# FILEPATH: /Users/mateusz/Desktop/ECE_461/project-mateusz/index.py
 import argparse
 import subprocess
 import os
 
-def is_tool(name):
-    from shutil import which
-    return which(name) is not None
-    
-    # Check if the tool is available globally
-    try:
-        result = subprocess.run([name, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return result.returncode == 0
-    except FileNotFoundError:
-        return False
+def is_ts_node_installed(base_dir="."):
+    ts_node_path = os.path.join(base_dir, 'node_modules', 'ts-node')
+    return os.path.isdir(ts_node_path)
 
-parser = argparse.ArgumentParser(description='CLI tool for installing, testing and analyzing dependencies.')
+parser = argparse.ArgumentParser(description='CLI tool for installing, testing, and analyzing dependencies.')
+
 subparsers = parser.add_subparsers(dest='command')
-
 install_parser = subparsers.add_parser('install', help='Installs dependencies in userland')
 test_parser = subparsers.add_parser('test', help='Run tests')
-analyze_parser = subparsers.add_parser('analyze', help='Analyze dependencies from a URL file')
 
-analyze_parser.add_argument('url_file', help='Path to the URL file')
+parser.add_argument('file', nargs='?', help='Path to the URL file')
 
-args = parser.parse_args()
+import sys
+if len(sys.argv) == 2 and os.path.isfile(sys.argv[1]):
+    args = argparse.Namespace(command=None, file=sys.argv[1])
+else:
+    args = parser.parse_args()
 
-if not is_tool('ts-node'):
+if not is_ts_node_installed():
     print("ts-node is not installed. Installing...")
     subprocess.run(['npm', 'install', 'ts-node'])
-    if not is_tool('ts-node'):
+    if not is_ts_node_installed():
         print("Failed to install ts-node. Exiting.")
         exit(1)
 
-if args.command == 'install':
-  subprocess.run(['ts-node', './install.ts', 'installDependencies'])
+ts_node_bin_path = os.path.join('.', 'node_modules', '.bin', 'ts-node')
+
+
+if args.file and not args.command:
+    if os.path.isfile(args.file):
+        print(f"Analyzing {args.file}...")
+        # subprocess.run([ts_node_bin_path, './analyze.ts', 'analyzeDependencies', args.file])
+        subprocess.run([ts_node_bin_path, './analyze.ts', args.file])
+
+    else:
+        print(f"Error: {args.file} does not exist.")
+        exit(1)        
+elif args.command == 'install':
+    print("Installing dependencies...")
+    subprocess.run([ts_node_bin_path, './install.ts'])
+
 elif args.command == 'test':
-  subprocess.run(['ts-node', './test.ts', 'testDependencies'])
-elif args.command == 'analyze':
-  subprocess.run(['ts-node', './analyze.ts', 'testDependencies', args.url_file])
+    print("Running tests...")
+    subprocess.run([ts_node_bin_path, './test.ts'])
+
 else:
-  parser.print_help()
+    parser.print_help()

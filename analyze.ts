@@ -1,7 +1,8 @@
 import fs from 'fs';
 import axios from 'axios';
+import { argv } from "process";
 
-export async function testDependencies(URL_FILE: string) {
+export async function analyzeDependencies(URL_FILE: string) {
     // console.log('in testDependencies');
     try {
         // console.log('in try, URL_FILE: ' + URL_FILE);
@@ -139,4 +140,13 @@ function calculateLicenseScore(data: any): number {
     // console.log('in calculateLicenseScore');
     const recognizedLicenses = ['MIT', 'GPL', 'BSD', 'ISC', 'Apache-2.0'];
     return recognizedLicenses.includes(data.license) ? 1 : 0;
+}
+
+if (require.main === module) {
+    (async () => {
+        if (argv.length >= 3) {
+            const file = argv[2];  // Get the file path from the command line arguments.
+            await analyzeDependencies(file);
+        }
+    })();
 }
