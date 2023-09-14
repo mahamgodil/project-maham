@@ -14,7 +14,7 @@ const headers = {
 //responsiveMaintainer();
 //rampUp();
 
-async function busFactor(repositoryUrl:string) {
+export async function busFactor(repositoryUrl:string) {
   try {
     // Fetch repository information
     const repositoryResponse = await axios.get(repositoryUrl, { headers });
@@ -45,7 +45,7 @@ async function busFactor(repositoryUrl:string) {
   }
 }
 
-async function license(repositoryUrl:string) {
+export async function license(repositoryUrl:string) {
   try {
     const repositoryResponse = await axios.get(repositoryUrl, { headers });
     const repositoryData = repositoryResponse.data;
@@ -73,7 +73,7 @@ async function license(repositoryUrl:string) {
   }
 }
 
-async function correctness(repositoryUrl:string) {
+export async function correctness(repositoryUrl:string) {
   const repositoryResponse = await axios.get(repositoryUrl, { headers });
   const repositoryData = repositoryResponse.data;
 
@@ -112,7 +112,7 @@ async function correctness(repositoryUrl:string) {
   fetchAllIssues();
 }
 
-async function responsiveMaintainer(repositoryUrl:string) {
+export async function responsiveMaintainer(repositoryUrl:string) {
   const repositoryResponse = await axios.get(repositoryUrl, { headers });
   const repositoryData = repositoryResponse.data;
 
@@ -172,6 +172,6 @@ async function responsiveMaintainer(repositoryUrl:string) {
   fetchAllIssues();
 }
 
-async function rampUp(repositoryUrl:string) {
+export async function rampUp(repositoryUrl:string) {
   return -1;
 }
