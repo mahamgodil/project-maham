@@ -3,9 +3,16 @@ import argparse
 import subprocess
 import os
 
-def is_tool_local(name):
-    """Check whether `name` is in the local node_modules/.bin/ directory."""
-    return os.path.exists(os.path.join(os.getcwd(), 'node_modules', '.bin', name))
+def is_tool(name):
+    from shutil import which
+    return which(name) is not None
+    
+    # Check if the tool is available globally
+    try:
+        result = subprocess.run([name, '--version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return result.returncode == 0
+    except FileNotFoundError:
+        return False
 
 parser = argparse.ArgumentParser(description='CLI tool for installing, testing and analyzing dependencies.')
 subparsers = parser.add_subparsers(dest='command')
