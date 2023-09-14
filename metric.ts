@@ -1,20 +1,20 @@
 import axios from 'axios';
 
 const token = process.env.GITHUB_API_TOKEN;
-const repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
+//const repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
 
 // Authenticate with GitHub
 const headers = {
     Authorization: `Bearer ${token}`,
 };
 
-//getNumOfSigContrib();
-//checkRepoLicense();
-//getClosedBugs();
-calcAvgResponse();
+//busFactor();
+//license();
+//correctness();
+//responsiveMaintainer();
 //rampUp();
 
-async function getNumOfSigContrib() {
+export async function busFactor(repositoryUrl:string) {
   try {
     // Fetch repository information
     const repositoryResponse = await axios.get(repositoryUrl, { headers });
@@ -38,13 +38,14 @@ async function getNumOfSigContrib() {
       (contributor: any) => (contributor.contributions / totalCommits) * 100 > 5
     );
 
-    console.log(`Number of significant contributors: ${significantContributors.length}`);
+    //console.log(`Number of significant contributors: ${significantContributors.length}`);
+    return significantContributors.length;
   } catch (error:any) {
     console.error('Error:', error.message);
   }
 }
 
-async function checkRepoLicense() {
+export async function license(repositoryUrl:string) {
   try {
     const repositoryResponse = await axios.get(repositoryUrl, { headers });
     const repositoryData = repositoryResponse.data;
@@ -55,14 +56,16 @@ async function checkRepoLicense() {
     // If the repository has a license, the response status will be 200 OK.
     // If the repository does not have a license, the response status will be 404 Not Found.
     if (LicenseResponse.status === 200) {
-      console.log('The repository has a license.');
+      //console.log('The repository has a license.');
+      return 1;
     }
     else {
       console.log(`Unexpected response status: ${LicenseResponse.status}`);
     }
   } catch (error:any) {
     if (error.response.status === 404) {
-      console.log('The repository does not have a license.');
+      //console.log('The repository does not have a license.');
+      return 0;
     } 
     else {
       console.log(`Unexpected response status: ${error.response.status}`);
@@ -70,7 +73,7 @@ async function checkRepoLicense() {
   }
 }
 
-async function getClosedBugs(page: number = 1) {
+export async function correctness(repositoryUrl:string) {
   const repositoryResponse = await axios.get(repositoryUrl, { headers });
   const repositoryData = repositoryResponse.data;
 
@@ -99,7 +102,8 @@ async function getClosedBugs(page: number = 1) {
       } else {
         // All issues have been fetched, display the results
         const bugPercentage = (totalClosedIssues / totalIssues) * 100;
-        console.log(`Percentage of closed issues: ${bugPercentage.toFixed(2)}%`);
+        //console.log(`Percentage of closed issues: ${bugPercentage.toFixed(2)}%`);
+        return bugPercentage.toFixed(5);
       }
     } catch (error) {
       console.error('Error making API request:', error);
@@ -108,7 +112,7 @@ async function getClosedBugs(page: number = 1) {
   fetchAllIssues();
 }
 
-async function calcAvgResponse() {
+export async function responsiveMaintainer(repositoryUrl:string) {
   const repositoryResponse = await axios.get(repositoryUrl, { headers });
   const repositoryData = repositoryResponse.data;
 
@@ -128,7 +132,6 @@ async function calcAvgResponse() {
 
       for (const issue of issues) {
         const commentsEndpoint = issue.comments_url;
-        console.log(`${totalResponseTime}, ${totalIssues}`);
 
         try {
           const response = await axios.get(commentsEndpoint, { headers });
@@ -159,7 +162,8 @@ async function calcAvgResponse() {
         } else {
           // All issues have been fetched, display the results
           const bugPercentage = totalResponseTime / totalIssues;
-          console.log(`Average response time of issues: ${bugPercentage.toFixed(2)}`);
+          //console.log(`Average response time of issues: ${bugPercentage.toFixed(2)}`);
+          return bugPercentage.toFixed(5);
         }
     } catch (error) {
       console.error('Error making API request:', error);
@@ -168,5 +172,6 @@ async function calcAvgResponse() {
   fetchAllIssues();
 }
 
-async function rampUp() {
+export async function rampUp(repositoryUrl:string) {
+  return -1;
 }
