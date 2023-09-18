@@ -2,12 +2,17 @@ import fs from 'fs';
 import axios from 'axios';
 import { argv } from "process";
 
+import { busFactor, correctness, license, rampUp, responsiveMaintainer } from './metric';
+
+
 export async function analyzeDependencies(URL_FILE: string) {
     // console.log('in testDependencies');
     try {
         // console.log('in try, URL_FILE: ' + URL_FILE);
         const urls = fs.readFileSync(URL_FILE, 'utf-8').split('\n').filter(Boolean);
-
+//         https://github.com/cloudinary/cloudinary_npm
+//         https://github.com/nullivex/nodist
+// https://github.com/lodash/lodash
         for (const url of urls) {
             console.log('in for loop, url: ' + url);
             if (url.includes('npmjs.com')) {
@@ -17,46 +22,64 @@ export async function analyzeDependencies(URL_FILE: string) {
                 }
                 // console.log('in if, packageName: ' + packageName);
                 const data = await fetchNpmDataWithAxios(packageName);
-                // console.log('in if, data:', JSON.stringify(data, null, 2));
-
-                const scores = {
-                    URL: url,
-                    NetScore: calculateNetScore(data),
-                    RampUp: calculateRampUpScore(data),
-                    Correctness: calculateCorrectnessScore(data),
-                    BusFactor: calculateBusFactorScore(data),
-                    ResponsiveMaintainer: 0.5,  // Placeholder
-                    License: calculateLicenseScore(data)
-                };
-
-                console.log('in if, scores:', JSON.stringify(scores, null, 2));
-
-                // console.log(JSON.stringify(scores));
+                const repositoryUrl = getGithubUrlFromNpmData(data);
+            
+                // Convert the GitHub URL to its respective GitHub API URL
+                if (repositoryUrl) { // Check if repositoryUrl is not null
+                    const newUrl = repositoryUrl.replace('github.com', 'api.github.com/repos');
+                    console.log('newUrl:', newUrl);
+                    // const rampUpResult = await rampUp(repositoryUrl);
+                    // // console.log('RampUp:', rampUpResult);
+                    // const CorrectnessResult = await correctness(repositoryUrl);
+                    // // console.log('Correctness:', CorrectnessResult);
+                    // const BusFactorResult = await busFactor(repositoryUrl);
+                    // // console.log('BusFactor:', BusFactorResult);
+                    // const ResponsiveMaintainerResult = await responsiveMaintainer(repositoryUrl);
+                    // // console.log('ResponsiveMaintainer:', ResponsiveMaintainerResult);
+                    // const LicenseResult = await license(repositoryUrl);
+                    // // console.log('License:', LicenseResult);
+    
+    
+                    // // TODO: Implement GitHub scoring logic
+                    // const scores = {
+                    //     URL: url,
+                    //     NetScore: 1,  // Placeholder
+                    //     RampUp: rampUpResult,
+                    //     Correctness: CorrectnessResult,
+                    //     BusFactor: BusFactorResult,
+                    //     ResponsiveMaintainer: ResponsiveMaintainerResult,
+                    //     License: LicenseResult
+                    // };
+                    // console.log('in if, scores:', JSON.stringify(scores, null, 2));
+                } else {
+                    console.log('No GitHub repository found for:', packageName);
+                }
             } else if (url.includes('github.com')) {
-                const data = await fetchGitHubDataWithAxios(url);
 
-                // Your scoring logic for GitHub data will be here
-                // (It's up to you how to derive these metrics from the GitHub data)
-                
-                // const scores = {
-                //     URL: url,
-                //     NetScore: calculateGitHubNetScore(data),
-                //     RampUp: calculateGitHubRampUpScore(data),
-                //     Correctness: calculateGitHubCorrectnessScore(data),
-                //     BusFactor: calculateGitHubBusFactorScore(data),
-                //     ResponsiveMaintainer: calculateGitHubResponsiveMaintainerScore(data),
-                //     License: calculateGitHubLicenseScore(data)
-                // };
+                // Change url from the format like https://github.com/nullivex/nodist to https://api.github.com/repos/nullivex/nodist
+                const newUrl = url.replace('github.com', 'api.github.com/repos');
+
+                const rampUpResult = await rampUp(newUrl);
+                // console.log('RampUp:', rampUpResult);
+                const CorrectnessResult = await correctness(newUrl);
+                // console.log('Correctness:', CorrectnessResult);
+                const BusFactorResult = await busFactor(newUrl);
+                // console.log('BusFactor:', BusFactorResult);
+                const ResponsiveMaintainerResult = await responsiveMaintainer(newUrl);
+                // console.log('ResponsiveMaintainer:', ResponsiveMaintainerResult);
+                const LicenseResult = await license(newUrl);
+                // console.log('License:', LicenseResult);
+
 
                 // TODO: Implement GitHub scoring logic
                 const scores = {
                     URL: url,
-                    NetScore: 0.5,
-                    RampUp: 0.5,
-                    Correctness: 0.5,
-                    BusFactor: 0.5,
-                    ResponsiveMaintainer: 0.5,
-                    License: 0.5
+                    NetScore: 1,  // Placeholder
+                    RampUp: rampUpResult,
+                    Correctness: CorrectnessResult,
+                    BusFactor: BusFactorResult,
+                    ResponsiveMaintainer: ResponsiveMaintainerResult,
+                    License: LicenseResult
                 };
             
                 console.log('GitHub scores:', JSON.stringify(scores, null, 2));
@@ -72,16 +95,17 @@ export async function analyzeDependencies(URL_FILE: string) {
     }
 }
 
-// async function example1WithFetch() {
-//     console.log('in example1WithFetch');
-//     const endpoint = "https://registry.npmjs.org/";
-//     const res = await axios.get(endpoint);
-//     console.log(res.data);
-//     console.log('Finished example1WithFetch');
-//     const data = await res.data;
-//     console.log(data);
-//   }
-  
+function getGithubUrlFromNpmData(data: any): string | null {
+    if (data && data.repository && data.repository.url) {
+        const repoUrl = data.repository.url;
+        // Check if the URL is a GitHub URL and clean it up if needed
+        const match = repoUrl.match(/https?:\/\/github\.com\/[^\/]+\/[^\/]+/);
+        if (match) {
+            return match[0];
+        }
+    }
+    return null;
+}
 
 async function fetchGitHubDataWithAxios(repositoryUrl: string) {
     const [, , , user, repo] = repositoryUrl.split('/');
