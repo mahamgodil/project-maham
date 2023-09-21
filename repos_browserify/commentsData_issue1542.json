@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/208653932",
+    "html_url": "https://github.com/browserify/browserify/issues/1542#issuecomment-208653932",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/1542",
+    "id": 208653932,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDIwODY1MzkzMg==",
+    "user": {
+      "login": "tvald",
+      "id": 406656,
+      "node_id": "MDQ6VXNlcjQwNjY1Ng==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/406656?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/tvald",
+      "html_url": "https://github.com/tvald",
+      "followers_url": "https://api.github.com/users/tvald/followers",
+      "following_url": "https://api.github.com/users/tvald/following{/other_user}",
+      "gists_url": "https://api.github.com/users/tvald/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/tvald/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/tvald/subscriptions",
+      "organizations_url": "https://api.github.com/users/tvald/orgs",
+      "repos_url": "https://api.github.com/users/tvald/repos",
+      "events_url": "https://api.github.com/users/tvald/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/tvald/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2016-04-12T01:18:41Z",
+    "updated_at": "2016-04-12T01:18:41Z",
+    "author_association": "NONE",
+    "body": "more testing:\n**ok** `node ..\\node_modules\\browserify\\bin\\cmd.js -t hyperxify main.js`\n**ok** `..\\node_modules\\.bin\\browserify -t hyperxify main.js`\n**fail** `npm run browserify -t hyperxify main.js`\n\nSo this can probably be closed as npm doing something stupid with the path or working directory that isn't worth tracking down.\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/208653932/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

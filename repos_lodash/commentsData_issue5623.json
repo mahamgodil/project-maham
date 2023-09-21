@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/1493777145",
+    "html_url": "https://github.com/lodash/lodash/issues/5623#issuecomment-1493777145",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/5623",
+    "id": 1493777145,
+    "node_id": "IC_kwDOADxbv85ZCTr5",
+    "user": {
+      "login": "Sumit2342",
+      "id": 88316155,
+      "node_id": "MDQ6VXNlcjg4MzE2MTU1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88316155?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/Sumit2342",
+      "html_url": "https://github.com/Sumit2342",
+      "followers_url": "https://api.github.com/users/Sumit2342/followers",
+      "following_url": "https://api.github.com/users/Sumit2342/following{/other_user}",
+      "gists_url": "https://api.github.com/users/Sumit2342/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/Sumit2342/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/Sumit2342/subscriptions",
+      "organizations_url": "https://api.github.com/users/Sumit2342/orgs",
+      "repos_url": "https://api.github.com/users/Sumit2342/repos",
+      "events_url": "https://api.github.com/users/Sumit2342/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/Sumit2342/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2023-04-03T06:54:23Z",
+    "updated_at": "2023-04-03T06:55:16Z",
+    "author_association": "NONE",
+    "body": "function findOne(conditionFn, array) {\r\n  for (let i = 0; i < array.length; i++) {\r\n    if (conditionFn(array[i])) {\r\n      return [array[i], i];\r\n    }\r\n  }\r\n  return [null, -1];\r\n} \r\nHere is the implementation of findOne function. It takes the condition and the array as the parameters.",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/1493777145/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

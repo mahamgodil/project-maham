@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/643866122",
+    "html_url": "https://github.com/lodash/lodash/issues/4817#issuecomment-643866122",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/4817",
+    "id": 643866122,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDY0Mzg2NjEyMg==",
+    "user": {
+      "login": "noopn",
+      "id": 25141562,
+      "node_id": "MDQ6VXNlcjI1MTQxNTYy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25141562?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/noopn",
+      "html_url": "https://github.com/noopn",
+      "followers_url": "https://api.github.com/users/noopn/followers",
+      "following_url": "https://api.github.com/users/noopn/following{/other_user}",
+      "gists_url": "https://api.github.com/users/noopn/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/noopn/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/noopn/subscriptions",
+      "organizations_url": "https://api.github.com/users/noopn/orgs",
+      "repos_url": "https://api.github.com/users/noopn/repos",
+      "events_url": "https://api.github.com/users/noopn/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/noopn/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2020-06-15T02:15:18Z",
+    "updated_at": "2020-06-15T02:15:18Z",
+    "author_association": "NONE",
+    "body": "console.log(fp.merge([],[]))\r\nconsole.log(_.merge([],[]))\r\nWhy inconsistent behavior",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/643866122/reactions",
+      "total_count": 1,
+      "+1": 1,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

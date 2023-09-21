@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/643665000",
+    "html_url": "https://github.com/expressjs/express/issues/4072#issuecomment-643665000",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/4072",
+    "id": 643665000,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDY0MzY2NTAwMA==",
+    "user": {
+      "login": "ankush2199",
+      "id": 49233112,
+      "node_id": "MDQ6VXNlcjQ5MjMzMTEy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/49233112?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/ankush2199",
+      "html_url": "https://github.com/ankush2199",
+      "followers_url": "https://api.github.com/users/ankush2199/followers",
+      "following_url": "https://api.github.com/users/ankush2199/following{/other_user}",
+      "gists_url": "https://api.github.com/users/ankush2199/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/ankush2199/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/ankush2199/subscriptions",
+      "organizations_url": "https://api.github.com/users/ankush2199/orgs",
+      "repos_url": "https://api.github.com/users/ankush2199/repos",
+      "events_url": "https://api.github.com/users/ankush2199/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/ankush2199/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2020-06-13T19:07:46Z",
+    "updated_at": "2020-06-13T19:07:46Z",
+    "author_association": "NONE",
+    "body": "Were you running the node command from the root of the project? That could have caused the problem here.",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/643665000/reactions",
+      "total_count": 1,
+      "+1": 1,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

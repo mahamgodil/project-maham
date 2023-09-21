@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/703068311",
+    "html_url": "https://github.com/lodash/lodash/issues/4934#issuecomment-703068311",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/4934",
+    "id": 703068311,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDcwMzA2ODMxMQ==",
+    "user": {
+      "login": "acagastya",
+      "id": 5466083,
+      "node_id": "MDQ6VXNlcjU0NjYwODM=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5466083?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/acagastya",
+      "html_url": "https://github.com/acagastya",
+      "followers_url": "https://api.github.com/users/acagastya/followers",
+      "following_url": "https://api.github.com/users/acagastya/following{/other_user}",
+      "gists_url": "https://api.github.com/users/acagastya/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/acagastya/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/acagastya/subscriptions",
+      "organizations_url": "https://api.github.com/users/acagastya/orgs",
+      "repos_url": "https://api.github.com/users/acagastya/repos",
+      "events_url": "https://api.github.com/users/acagastya/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/acagastya/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2020-10-03T08:30:18Z",
+    "updated_at": "2020-10-03T08:30:18Z",
+    "author_association": "NONE",
+    "body": "@Arnaud954 Was this by mistake -- is there an issue you would like to report -- if so, please explain the problem properly.  If this was a mistake -- please close this issue.",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/703068311/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/135098106",
+    "html_url": "https://github.com/browserify/browserify/issues/1343#issuecomment-135098106",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/1343",
+    "id": 135098106,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDEzNTA5ODEwNg==",
+    "user": {
+      "login": "galexy",
+      "id": 616667,
+      "node_id": "MDQ6VXNlcjYxNjY2Nw==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/616667?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/galexy",
+      "html_url": "https://github.com/galexy",
+      "followers_url": "https://api.github.com/users/galexy/followers",
+      "following_url": "https://api.github.com/users/galexy/following{/other_user}",
+      "gists_url": "https://api.github.com/users/galexy/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/galexy/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/galexy/subscriptions",
+      "organizations_url": "https://api.github.com/users/galexy/orgs",
+      "repos_url": "https://api.github.com/users/galexy/repos",
+      "events_url": "https://api.github.com/users/galexy/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/galexy/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2015-08-26T16:35:35Z",
+    "updated_at": "2015-08-26T16:35:35Z",
+    "author_association": "NONE",
+    "body": "+1\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/135098106/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

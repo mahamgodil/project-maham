@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/1230760522",
+    "html_url": "https://github.com/lodash/lodash/issues/5513#issuecomment-1230760522",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/5513",
+    "id": 1230760522,
+    "node_id": "IC_kwDOADxbv85JW-pK",
+    "user": {
+      "login": "thelaughingwolf",
+      "id": 12754560,
+      "node_id": "MDQ6VXNlcjEyNzU0NTYw",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12754560?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/thelaughingwolf",
+      "html_url": "https://github.com/thelaughingwolf",
+      "followers_url": "https://api.github.com/users/thelaughingwolf/followers",
+      "following_url": "https://api.github.com/users/thelaughingwolf/following{/other_user}",
+      "gists_url": "https://api.github.com/users/thelaughingwolf/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/thelaughingwolf/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/thelaughingwolf/subscriptions",
+      "organizations_url": "https://api.github.com/users/thelaughingwolf/orgs",
+      "repos_url": "https://api.github.com/users/thelaughingwolf/repos",
+      "events_url": "https://api.github.com/users/thelaughingwolf/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/thelaughingwolf/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2022-08-29T19:23:57Z",
+    "updated_at": "2022-08-29T19:23:57Z",
+    "author_association": "NONE",
+    "body": "I didn't realize adding a PR would create its own issue, pardon my ignorance! Closing this one.",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/1230760522/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

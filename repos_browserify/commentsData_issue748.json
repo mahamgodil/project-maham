@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/42255480",
+    "html_url": "https://github.com/browserify/browserify/issues/748#issuecomment-42255480",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/748",
+    "id": 42255480,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDQyMjU1NDgw",
+    "user": {
+      "login": "jameslnewell",
+      "id": 2237996,
+      "node_id": "MDQ6VXNlcjIyMzc5OTY=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2237996?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jameslnewell",
+      "html_url": "https://github.com/jameslnewell",
+      "followers_url": "https://api.github.com/users/jameslnewell/followers",
+      "following_url": "https://api.github.com/users/jameslnewell/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jameslnewell/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jameslnewell/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jameslnewell/subscriptions",
+      "organizations_url": "https://api.github.com/users/jameslnewell/orgs",
+      "repos_url": "https://api.github.com/users/jameslnewell/repos",
+      "events_url": "https://api.github.com/users/jameslnewell/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jameslnewell/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2014-05-06T00:08:26Z",
+    "updated_at": "2014-05-06T00:08:40Z",
+    "author_association": "NONE",
+    "body": "Hmm, this seems to work after adding browser sections within each package. I've submitted PRs to the relevant projects.\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/42255480/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]
