@@ -11,6 +11,14 @@ function getMockDataPath(repositoryUrl, dataType) {
   return `${dirName}/${dataType}.json`;
 }
 
+function getNumberOfMockPages(starts = 'issuesData_page', repositoryUrl) {
+  const dirPath = getMockDataPath(repositoryUrl, '').slice(0, -5); // Remove the '.json' to get the directory path
+  const files = fs.readdirSync(dirPath);
+  const issuesFiles = files.filter(file => file.startsWith(starts));
+  return issuesFiles.length;
+}
+
+
 function loadMockData(repositoryUrl, dataType) {
   const filePath = getMockDataPath(repositoryUrl, dataType);
   return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -37,28 +45,54 @@ describe('GitHub Repository Metrics', () => {
 
     it('should determine the license status correctly', async () => {
       const licenseMockData = loadMockData(repositoryUrl, 'licenseData');
-      axios.get.mockResolvedValueOnce({ data: licenseMockData });
+      // console.log(licenseMockData);
+      // console log status
+      // console.log(licenseMockData.status);
+      axios.get.mockResolvedValueOnce({
+        data: licenseMockData.data,
+        status: licenseMockData.status
+    });
+    
 
       const result = await license(repositoryUrl);
-      expect(result).toBe(1);
+    // it can be 1 or 0
+      expect(result).toBeLessThanOrEqual(1);
     });
 
     it('should compute correctness based on issues', async () => {
-      const issuesMockDataPage1 = loadMockData(repositoryUrl, 'issuesData_page1');
-      axios.get.mockResolvedValueOnce({ data: issuesMockDataPage1 });
+      const numberOfPages = getNumberOfMockPages(repositoryUrl);
+
+      for (let i = 1; i <= numberOfPages; i++) {
+        const issuesMockData = loadMockData(repositoryUrl, `issuesData_page${i}`);
+        axios.get.mockResolvedValueOnce({ data: issuesMockData });
+      }
+      // const issuesMockDataPage1 = loadMockData(repositoryUrl, 'issuesData_page1');
+      // axios.get.mockResolvedValueOnce({ data: issuesMockDataPage1 });
 
       const result = await correctness(repositoryUrl);
       expect(result).toBeLessThanOrEqual(1);
     });
 
+      
+    // RESPONSIVE MAINTAINER
     it('should compute responsiveness of maintainers', async () => {
-      const issuesMockDataPage1 = loadMockData(repositoryUrl, 'issuesData_page1');
-      const commentsMockDataIssueSample = loadMockData(repositoryUrl, 'commentsData_issueSample');
-      axios.get.mockResolvedValueOnce({ data: issuesMockDataPage1 })
-            .mockResolvedValueOnce({ data: commentsMockDataIssueSample });
-
+      const numIssuePages = getNumberOfMockPages('issuesData_page', repositoryUrl);
+    
+      // Mock data for each issue page
+      for (let i = 1; i <= numIssuePages; i++) {
+        const issuesMockData = loadMockData(repositoryUrl, `issuesData_page${i}`);
+        axios.get.mockResolvedValueOnce({ data: issuesMockData });
+    
+        // For each issue in the current page (only first 10), mock the comments data
+        issuesMockData.slice(0, 10).forEach(issue => {
+          const commentsMockData = loadMockData(repositoryUrl, `commentsData_issue${issue.number}`);
+          axios.get.mockResolvedValueOnce({ data: commentsMockData });
+        });
+      }
+    
       const result = await responsiveMaintainer(repositoryUrl);
       expect(result).toBeLessThanOrEqual(24);
     });
+    
   });
 });

@@ -48,7 +48,7 @@ export async function busFactor(repositoryUrl: string) {
       (contributor: any) => (contributor.contributions / totalCommits) * 100 > 5
     );
 
-    console.log("BusFactor:", significantContributors.length);
+    // console.log("BusFactor:", significantContributors.length);
     return significantContributors.length;
   } catch (error: any) {
     console.error('Error:', error.message);
@@ -58,8 +58,11 @@ export async function busFactor(repositoryUrl: string) {
 
 export async function license(repositoryUrl: string) {
   try {
+    
     const licenseUrl = `${repositoryUrl}/license`;
+    // console.log("licenseUrl", licenseUrl);
     const LicenseResponse = await axios.get(licenseUrl, { headers });
+    // console.log("LicenseResponse", LicenseResponse);
 
     const [, , , user, repo] = repositoryUrl.split('/');
     const dirName = `${user}_${repo}`;
@@ -68,22 +71,47 @@ export async function license(repositoryUrl: string) {
     }
 
     const licenseFilename = path.join(dirName, 'licenseData.json');
-    fs.writeFileSync(licenseFilename, JSON.stringify(LicenseResponse.data, null, 2));
+    const sanitizedResponse = {
+      data: LicenseResponse.data,
+      status: LicenseResponse.status
+    };
 
-    if (LicenseResponse.status === 200) {
-      console.log('License: 1');
+    fs.writeFileSync(licenseFilename, JSON.stringify(sanitizedResponse, null, 2));
+
+
+    if (LicenseResponse.data && LicenseResponse.data.license) {
+      // console.log('License:', LicenseResponse.data.license.name);
       return 1;
     } else {
-      console.log(`Unexpected response status: ${LicenseResponse.status}`);
-      return -1;
-    }
-  } catch (error: any) {
-    if (error.response.status === 404) {
+      // console.log('No license found');
       return 0;
+    }
+
+  } catch (error: any) {
+    if (error.response) {
+      if (error.response.status === 404) {
+        // console.log('No license found');
+        const [, , , user, repo] = repositoryUrl.split('/');
+        const dirName = `${user}_${repo}`;
+        if (!fs.existsSync(dirName)) {
+          fs.mkdirSync(dirName);
+        }
+        const licenseFilename = path.join(dirName, 'licenseData.json');
+        const sanitizedResponse = {
+          data: error.response.data,
+          status: error.response.status
+        };
+        fs.writeFileSync(licenseFilename, JSON.stringify(sanitizedResponse, null, 2));
+        return 0;
+      } else {
+        console.log(`Unexpected response status: ${error.response.status}`);
+        return -1;
+      }
     } else {
-      console.log(`Unexpected response status: ${error.response.status}`);
+      console.error('Error:', error.message);
       return -1;
     }
+
   }
 }
 
