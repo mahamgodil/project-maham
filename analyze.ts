@@ -1,8 +1,25 @@
 import fs from 'fs';
 import axios from 'axios';
 import { argv, exit } from "process";
+import winston from 'winston';
+const logLevels = ['error', 'info', 'debug'];
+const logLevel = logLevels[Number(process.env.LOG_LEVEL) || 0];
+const logFile = process.env.LOG_FILE || 'default.log';
+
+if (!fs.existsSync(logFile)) {
+    fs.writeFileSync(logFile, '');
+}
+
+const logger = winston.createLogger({
+    level: logLevel,
+    format: winston.format.simple(),
+    transports: [
+        new winston.transports.File({ filename: logFile })
+    ]
+});
 
 import { busFactor, correctness, license, rampUp, responsiveMaintainer } from './metric';
+import { log } from 'console';
 
 
 export async function analyzeDependencies(URL_FILE: string) {
@@ -12,7 +29,8 @@ export async function analyzeDependencies(URL_FILE: string) {
         const urls = fs.readFileSync(URL_FILE, 'utf-8').split('\n').filter(Boolean);
 
         for (const url of urls) {
-            console.log('in for loop, url: ' + url);
+            logger.info('Analyzing:', url);
+
             if (url.includes('npmjs.com')) {
                 // console.log("IN NPM LOOP");
                 const packageName = url.split('/').pop();
@@ -44,15 +62,16 @@ export async function analyzeDependencies(URL_FILE: string) {
                         License: LicenseResult
                     };
                 
-                    console.log('GitHub scores:', JSON.stringify(scores, null, 2));
+                    console.log(JSON.stringify(scores)); 
+                    logger.info('GitHub scores:', JSON.stringify(scores, null, 2));
                 } else {
-                    console.log('No GitHub repository found for:', packageName);
+                    logger.error('No GitHub URL found for:', url);
                 }
             } else if (url.includes('github.com')) {
-                console.log("URL", url);
+                logger.debug('GitHub URL found:', url);
                 // Change url from the format like https://github.com/nullivex/nodist to https://api.github.com/repos/nullivex/nodist
                 const newUrl = url.replace('github.com', 'api.github.com/repos');
-                console.log("Github new URL", newUrl);
+                logger.debug('New URL:', newUrl);
                 const rampUpResult = await rampUp(newUrl);
                 // console.log('RampUp:', rampUpResult);
                 const CorrectnessResult = await correctness(newUrl);
@@ -76,14 +95,14 @@ export async function analyzeDependencies(URL_FILE: string) {
                     License: LicenseResult
                 };
             
-                console.log('GitHub scores:', JSON.stringify(scores, null, 2));
+                console.log(JSON.stringify(scores)); 
+                logger.info('GitHub scores:', JSON.stringify(scores, null, 2));
             }
         }
 
         // process.exit(0);
     } catch (err) {
-        console.error(err);
-        console.error('Error occurred:', err);
+        logger.error('Error analyzing dependencies:', err);
 
         process.exit(1);
     }
@@ -117,7 +136,8 @@ export async function analyzeDependencies(URL_FILE: string) {
 function getGithubUrlFromNpmData(data: any): string | null {
     if (data && data.repository && data.repository.url) {
         const repoUrl = data.repository.url;
-        console.log("Original repo URL:", repoUrl);
+        // console.log("Original repo URL:", repoUrl);
+        logger.debug("Original repo URL:", repoUrl);
 
         // Remove the .git extension if it exists
         const sanitizedRepoUrl = repoUrl.replace(/\.git$/, '');
@@ -139,7 +159,8 @@ function getGithubUrlFromNpmData(data: any): string | null {
             cleanUrl = cleanUrl.replace(/\.git$/, '');
         }
 
-        console.log("Cleaned up URL:", cleanUrl);
+        // console.log("Cleaned up URL:", cleanUrl);
+        logger.debug("Cleaned up URL:", cleanUrl);
 
         return cleanUrl;
     }

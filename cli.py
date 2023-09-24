@@ -21,10 +21,10 @@ else:
     args = parser.parse_args()
 
 if not is_ts_node_installed():
-    print("ts-node is not installed. Installing...")
+    # print("ts-node is not installed. Installing...")
     subprocess.run(['npm', 'install', 'ts-node'])
     if not is_ts_node_installed():
-        print("Failed to install ts-node. Exiting.")
+        # print("Failed to install ts-node. Exiting.")
         exit(1)
 
 ts_node_bin_path = os.path.join('.', 'node_modules', '.bin', 'ts-node')
@@ -32,19 +32,19 @@ ts_node_bin_path = os.path.join('.', 'node_modules', '.bin', 'ts-node')
 
 if args.file and not args.command:
     if os.path.isfile(args.file):
-        print(f"Analyzing {args.file}...")
+        # print(f"Analyzing {args.file}...")
         # subprocess.run([ts_node_bin_path, './analyze.ts', 'analyzeDependencies', args.file])
         subprocess.run([ts_node_bin_path, './analyze.ts', args.file])
 
     else:
-        print(f"Error: {args.file} does not exist.")
+        # print(f"Error: {args.file} does not exist.")
         exit(1)        
 elif args.command == 'install':
-    print("Installing dependencies...")
+    # print("Installing dependencies...")
     subprocess.run([ts_node_bin_path, './install.ts'])
 
 elif args.command == 'test':
-    print("Running tests...")
+    # print("Running tests...")
     subprocess.run([ts_node_bin_path, './test.ts'])
 
 else:
