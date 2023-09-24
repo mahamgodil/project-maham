@@ -5,8 +5,6 @@ const { clone } = require('isomorphic-git');
 const fs = require('fs');
 const http = require('isomorphic-git/http/node');
 const tmp = require('tmp');
-// https://www.npmjs.com/package/express
-// https://www.npmjs.com/package/browserify
 import winston from 'winston';
 const logLevels = ['error', 'info', 'debug'];
 const logLevel = logLevels[Number(process.env.LOG_LEVEL) || 0];

@@ -54,15 +54,15 @@ export async function analyzeDependencies(URL_FILE: string) {
                     // TODO: Implement GitHub scoring logic
                     const scores = {
                         URL: url,
-                        NetScore: 1,  // Placeholder
-                        RampUp: rampUpResult,
-                        Correctness: CorrectnessResult,
-                        BusFactor: BusFactorResult,
-                        ResponsiveMaintainer: ResponsiveMaintainerResult,
-                        License: LicenseResult
+                        NET_SCORE: 1,  // Placeholder
+                        RAMP_UP_SCORE: rampUpResult,
+                        CORRECTNESS_SCORE: CorrectnessResult,
+                        BUS_FACTOR_SCORE: BusFactorResult,
+                        RESPONSIVE_MAINTAINER_SCORE: ResponsiveMaintainerResult,
+                        LICENSE_SCORE: LicenseResult
                     };
-                
-                    console.log(JSON.stringify(scores)); 
+                    
+                    console.log(JSON.stringify(scores) + '\n'); 
                     logger.info('GitHub scores:', JSON.stringify(scores, null, 2));
                 } else {
                     logger.error('No GitHub URL found for:', url);

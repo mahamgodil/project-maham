@@ -45,7 +45,8 @@ elif args.command == 'install':
 
 elif args.command == 'test':
     # print("Running tests...")
-    subprocess.run([ts_node_bin_path, './test.ts'])
+    # run comman npm test
+    subprocess.run(['npm', 'test'])
 
 else:
     parser.print_help()
