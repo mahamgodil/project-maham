@@ -1,4 +1,23 @@
 #!/bin/sh
-# ./node_modules/.bin/ts-node index.ts $@
+
+# Load the variables from .env
+set -a
+. .env
+set +a
+
+# Explicitly set each variable
+export GITHUB_TOKEN=$GITHUB_TOKEN
+export LOG_LEVEL=$LOG_LEVEL
+export LOG_FILE=$LOG_FILE
+
+if [ -z "$LOG_FILE" ]; then
+    # echo "LOG_FILE environment variable is not set or is an empty string."
+    exit 1
+fi
+
+if [ -z "$GITHUB_TOKEN" ]; then
+    # echo "GITHUB_TOKEN environment variable is not set or is an empty string."
+    exit 1
+fi
 
 python3 cli.py $@

@@ -2,14 +2,22 @@ import fs from 'fs';
 import axios from 'axios';
 import { argv, exit } from "process";
 import winston from 'winston';
+
 const logLevels = ['error', 'info', 'debug'];
 const logLevel = logLevels[Number(process.env.LOG_LEVEL) || 0];
-const logFile = process.env.LOG_FILE || 'default.log';
+const logFile = process.env.LOG_FILE;
 
-if (!fs.existsSync(logFile)) {
-    fs.writeFileSync(logFile, '');
+if (!logLevel) {
+    
+    process.exit(1);
 }
 
+if (!logFile || !logFile.trim()) {
+    
+    process.exit(1);
+} else if (!fs.existsSync(logFile)) {
+    fs.writeFileSync(logFile, '');
+}
 const logger = winston.createLogger({
     level: logLevel,
     format: winston.format.simple(),
@@ -18,12 +26,15 @@ const logger = winston.createLogger({
     ]
 });
 
+
+
 import { busFactor, correctness, license, rampUp, responsiveMaintainer } from './metric';
-import { log } from 'console';
+// import { log } from 'console';
+
 
 
 export async function analyzeDependencies(URL_FILE: string) {
-    // console.log('in testDependencies');
+
     try {
         // console.log('in try, URL_FILE: ' + URL_FILE);
         const urls = fs.readFileSync(URL_FILE, 'utf-8').split('\n').filter(Boolean);
@@ -51,7 +62,7 @@ export async function analyzeDependencies(URL_FILE: string) {
                     const ResponsiveMaintainerResult = await responsiveMaintainer(newUrl);
                     const LicenseResult = await license(newUrl);
     
-                    // TODO: Implement GitHub scoring logic
+                    
                     const scores = {
                         URL: url,
                         NET_SCORE: 1,  // Placeholder
@@ -62,7 +73,8 @@ export async function analyzeDependencies(URL_FILE: string) {
                         LICENSE_SCORE: LicenseResult
                     };
                     
-                    console.log(JSON.stringify(scores) + '\n'); 
+                    console.log(JSON.stringify(scores) );  // Ensure newline is added for NDJSON format
+                    
                     logger.info('GitHub scores:', JSON.stringify(scores, null, 2));
                 } else {
                     logger.error('No GitHub URL found for:', url);
@@ -87,15 +99,15 @@ export async function analyzeDependencies(URL_FILE: string) {
                 // TODO: Implement GitHub scoring logic
                 const scores = {
                     URL: url,
-                    NetScore: 1,  // Placeholder
-                    RampUp: rampUpResult,
-                    Correctness: CorrectnessResult,
-                    BusFactor: BusFactorResult,
-                    ResponsiveMaintainer: ResponsiveMaintainerResult,
-                    License: LicenseResult
+                    NET_SCORE: 1,  // Placeholder
+                    RAMP_UP_SCORE: rampUpResult,
+                    CORRECTNESS_SCORE: CorrectnessResult,
+                    BUS_FACTOR_SCORE: BusFactorResult,
+                    RESPONSIVE_MAINTAINER_SCORE: ResponsiveMaintainerResult,
+                    LICENSE_SCORE: LicenseResult
                 };
             
-                console.log(JSON.stringify(scores)); 
+                console.log(JSON.stringify(scores));
                 logger.info('GitHub scores:', JSON.stringify(scores, null, 2));
             }
         }

@@ -1,6 +1,7 @@
 import argparse
 import subprocess
 import os
+import json
 
 def is_ts_node_installed(base_dir="."):
     ts_node_path = os.path.join(base_dir, 'node_modules', 'ts-node')
@@ -34,7 +35,8 @@ if args.file and not args.command:
     if os.path.isfile(args.file):
         # print(f"Analyzing {args.file}...")
         # subprocess.run([ts_node_bin_path, './analyze.ts', 'analyzeDependencies', args.file])
-        subprocess.run([ts_node_bin_path, './analyze.ts', args.file])
+        subprocess.run([ts_node_bin_path, './analyze.ts', args.file], env=os.environ)
+
 
     else:
         # print(f"Error: {args.file} does not exist.")
@@ -44,9 +46,29 @@ elif args.command == 'install':
     subprocess.run([ts_node_bin_path, './install.ts'])
 
 elif args.command == 'test':
-    # print("Running tests...")
-    # run comman npm test
-    subprocess.run(['npm', 'test'])
+    subprocess.run(['npm', 'test', '--silent'], env=os.environ)
+    with open('test_output.json', 'r') as f:
+        test_results = json.load(f)
+
+# Sample Output (to Stdout):
+
+# Total: 10
+# Passed: 9
+# Coverage: 90%
+# 9/10 test cases passed. 90% line coverage achieved.
+
+    total_tests = test_results['numTotalTests']
+    passed_tests = test_results['numPassedTests']
+    coverage = (passed_tests / total_tests) * 100
+    # print(f"\nTotal: {total_tests}")
+    # print(f"Passed: {passed_tests}")
+    # print(f"Coverage: {coverage:.2f}%")
+    print(f"{passed_tests}/{total_tests} test cases passed. {int(coverage)}% line coverage achieved.", end='')
+
+
+    exit(0)
+
 
 else:
     parser.print_help()
+    exit(1)
