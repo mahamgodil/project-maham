@@ -1,7 +1,10 @@
 import axios from 'axios';
 require('dotenv').config();
-import fs from 'fs';
 import path from 'path';
+const { clone } = require('isomorphic-git');
+const fs = require('fs');
+const http = require('isomorphic-git/http/node');
+const tmp = require('tmp');
 // https://www.npmjs.com/package/express
 // https://www.npmjs.com/package/browserify
 
@@ -236,9 +239,28 @@ export async function responsiveMaintainer(repositoryUrl: string) {
   return await fetchAllIssues();
 }
 
-
-
-
-export async function rampUp(repositoryUrl: string) {
+export async function rampUp(repositoryUrl:string) {
+  try {
+    const tempDir = tmp.dirSync({ unsafeCleanup: true, prefix: 'temp-' });
+    const localDir = tempDir.name;
+    const userAgent = 'UAgent';
+    console.log("Awaiting clone");
+    function cloneRepo(): Promise<void> {
+      Promise.race([clone({
+        fs,
+        http,
+        url: "https://github.com/nytimes/covid-19-data",
+        dir: localDir,
+        onAuth: () => ({ token }),
+        headers: {
+          'User-Agent': userAgent,
+        },
+      })]);
+    }
+    console.log("Cloned Repo");
+    tempDir.removeCallback();
+  } catch (error) {
+    console.error('Error cloning repository:', error);
+  }
   return -1;
 }
