@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/128614837",
+    "html_url": "https://github.com/browserify/browserify/issues/1349#issuecomment-128614837",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/1349",
+    "id": 128614837,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDEyODYxNDgzNw==",
+    "user": {
+      "login": "tjmehta",
+      "id": 640279,
+      "node_id": "MDQ6VXNlcjY0MDI3OQ==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/640279?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/tjmehta",
+      "html_url": "https://github.com/tjmehta",
+      "followers_url": "https://api.github.com/users/tjmehta/followers",
+      "following_url": "https://api.github.com/users/tjmehta/following{/other_user}",
+      "gists_url": "https://api.github.com/users/tjmehta/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/tjmehta/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/tjmehta/subscriptions",
+      "organizations_url": "https://api.github.com/users/tjmehta/orgs",
+      "repos_url": "https://api.github.com/users/tjmehta/repos",
+      "events_url": "https://api.github.com/users/tjmehta/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/tjmehta/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2015-08-07T06:54:21Z",
+    "updated_at": "2015-08-07T06:54:21Z",
+    "author_association": "NONE",
+    "body": "This was just fixed w/ stream-http@1.4.0.\nBrowserify's package specifies stream-http@^1.2.0, so any \nnpm installs now will automatically receive the fix.\n\nClosing this.\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/128614837/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

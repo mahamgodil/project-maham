@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/nullivex/nodist/issues/comments/37722548",
+    "html_url": "https://github.com/nullivex/nodist/issues/51#issuecomment-37722548",
+    "issue_url": "https://api.github.com/repos/nullivex/nodist/issues/51",
+    "id": 37722548,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDM3NzIyNTQ4",
+    "user": {
+      "login": "marcelklehr",
+      "id": 986878,
+      "node_id": "MDQ6VXNlcjk4Njg3OA==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/986878?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/marcelklehr",
+      "html_url": "https://github.com/marcelklehr",
+      "followers_url": "https://api.github.com/users/marcelklehr/followers",
+      "following_url": "https://api.github.com/users/marcelklehr/following{/other_user}",
+      "gists_url": "https://api.github.com/users/marcelklehr/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/marcelklehr/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/marcelklehr/subscriptions",
+      "organizations_url": "https://api.github.com/users/marcelklehr/orgs",
+      "repos_url": "https://api.github.com/users/marcelklehr/repos",
+      "events_url": "https://api.github.com/users/marcelklehr/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/marcelklehr/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2014-03-15T10:34:34Z",
+    "updated_at": "2014-03-15T10:34:34Z",
+    "author_association": "COLLABORATOR",
+    "body": "yea, I'm not really a batch ninja ;) Thank you!\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/nullivex/nodist/issues/comments/37722548/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

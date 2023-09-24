@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/1258972",
+    "html_url": "https://github.com/expressjs/express/issues/639#issuecomment-1258972",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/639",
+    "id": 1258972,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDEyNTg5NzI=",
+    "user": {
+      "login": "Raynos",
+      "id": 479538,
+      "node_id": "MDQ6VXNlcjQ3OTUzOA==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/479538?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/Raynos",
+      "html_url": "https://github.com/Raynos",
+      "followers_url": "https://api.github.com/users/Raynos/followers",
+      "following_url": "https://api.github.com/users/Raynos/following{/other_user}",
+      "gists_url": "https://api.github.com/users/Raynos/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/Raynos/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/Raynos/subscriptions",
+      "organizations_url": "https://api.github.com/users/Raynos/orgs",
+      "repos_url": "https://api.github.com/users/Raynos/repos",
+      "events_url": "https://api.github.com/users/Raynos/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/Raynos/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2011-05-29T22:35:42Z",
+    "updated_at": "2011-05-29T22:35:42Z",
+    "author_association": "CONTRIBUTOR",
+    "body": "Probably best to edit the connect documentation http://senchalabs.github.com/connect/middleware-router.html\nTo mention that it will soon be removed.\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/1258972/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

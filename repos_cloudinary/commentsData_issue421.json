@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/cloudinary/cloudinary_npm/issues/comments/659709895",
+    "html_url": "https://github.com/cloudinary/cloudinary_npm/issues/421#issuecomment-659709895",
+    "issue_url": "https://api.github.com/repos/cloudinary/cloudinary_npm/issues/421",
+    "id": 659709895,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDY1OTcwOTg5NQ==",
+    "user": {
+      "login": "shirlymanor",
+      "id": 604899,
+      "node_id": "MDQ6VXNlcjYwNDg5OQ==",
+      "avatar_url": "https://avatars.githubusercontent.com/u/604899?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/shirlymanor",
+      "html_url": "https://github.com/shirlymanor",
+      "followers_url": "https://api.github.com/users/shirlymanor/followers",
+      "following_url": "https://api.github.com/users/shirlymanor/following{/other_user}",
+      "gists_url": "https://api.github.com/users/shirlymanor/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/shirlymanor/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/shirlymanor/subscriptions",
+      "organizations_url": "https://api.github.com/users/shirlymanor/orgs",
+      "repos_url": "https://api.github.com/users/shirlymanor/repos",
+      "events_url": "https://api.github.com/users/shirlymanor/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/shirlymanor/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2020-07-16T22:29:01Z",
+    "updated_at": "2020-07-16T22:29:01Z",
+    "author_association": "NONE",
+    "body": "Currently, the only way to get the assets without tags is to iterate on all the resources and get the one that tags are empty. I opened a request on your behalf to our product team to support this feature but no ETA yet. ",
+    "reactions": {
+      "url": "https://api.github.com/repos/cloudinary/cloudinary_npm/issues/comments/659709895/reactions",
+      "total_count": 1,
+      "+1": 1,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

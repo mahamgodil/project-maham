@@ -1,16 +1,19 @@
 import axios from 'axios';
 require('dotenv').config();
+import path from 'path';
 const { clone } = require('isomorphic-git');
 const fs = require('fs');
 const http = require('isomorphic-git/http/node');
 const tmp = require('tmp');
+// https://www.npmjs.com/package/express
+// https://www.npmjs.com/package/browserify
 
 const token = process.env.GITHUB_API_TOKEN;
 //const repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
 
 // Authenticate with GitHub
 const headers = {
-    Authorization: `Bearer ${token}`,
+  Authorization: `Bearer ${token}`,
 };
 
 
@@ -18,10 +21,27 @@ export async function busFactor(repositoryUrl: string) {
   try {
     const repositoryResponse = await axios.get(repositoryUrl, { headers });
     const repositoryData = repositoryResponse.data;
+    const [, , , user, repo] = repositoryUrl.split('/');
+
+    // Directory name based on user and repo
+    const dirName = `${user}_${repo}`;
+    if (!fs.existsSync(dirName)) {
+      fs.mkdirSync(dirName);
+    }
+
+    // Save repository data
+    const repoFilename = path.join(dirName, 'repositoryData.json');
+    fs.writeFileSync(repoFilename, JSON.stringify(repositoryData, null, 2));
+
     let totalCommits = 0;
     const contributorsUrl = repositoryData.contributors_url;
     const contributorsResponse = await axios.get(contributorsUrl, { headers });
     const contributorsData = contributorsResponse.data;
+
+    const contributorsFilename = path.join(dirName, 'contributorsData.json');
+    fs.writeFileSync(contributorsFilename, JSON.stringify(contributorsData, null, 2));
+
+
 
     contributorsData.forEach((contributor: any) => {
       totalCommits += contributor.contributions;
@@ -31,7 +51,7 @@ export async function busFactor(repositoryUrl: string) {
       (contributor: any) => (contributor.contributions / totalCommits) * 100 > 5
     );
 
-    console.log("BusFactor:", significantContributors.length);
+    // console.log("BusFactor:", significantContributors.length);
     return significantContributors.length;
   } catch (error: any) {
     console.error('Error:', error.message);
@@ -41,27 +61,65 @@ export async function busFactor(repositoryUrl: string) {
 
 export async function license(repositoryUrl: string) {
   try {
+    
     const licenseUrl = `${repositoryUrl}/license`;
+    // console.log("licenseUrl", licenseUrl);
     const LicenseResponse = await axios.get(licenseUrl, { headers });
-    if (LicenseResponse.status === 200) {
-      console.log('License: 1');
+    // console.log("LicenseResponse", LicenseResponse);
+
+    const [, , , user, repo] = repositoryUrl.split('/');
+    const dirName = `${user}_${repo}`;
+    if (!fs.existsSync(dirName)) {
+      fs.mkdirSync(dirName);
+    }
+
+    const licenseFilename = path.join(dirName, 'licenseData.json');
+    const sanitizedResponse = {
+      data: LicenseResponse.data,
+      status: LicenseResponse.status
+    };
+
+    fs.writeFileSync(licenseFilename, JSON.stringify(sanitizedResponse, null, 2));
+
+
+    if (LicenseResponse.data && LicenseResponse.data.license) {
+      // console.log('License:', LicenseResponse.data.license.name);
       return 1;
     } else {
-      console.log(`Unexpected response status: ${LicenseResponse.status}`);
-      return -1;
-    }
-  } catch (error: any) {
-    if (error.response.status === 404) {
+      // console.log('No license found');
       return 0;
+    }
+
+  } catch (error: any) {
+    if (error.response) {
+      if (error.response.status === 404) {
+        // console.log('No license found');
+        const [, , , user, repo] = repositoryUrl.split('/');
+        const dirName = `${user}_${repo}`;
+        if (!fs.existsSync(dirName)) {
+          fs.mkdirSync(dirName);
+        }
+        const licenseFilename = path.join(dirName, 'licenseData.json');
+        const sanitizedResponse = {
+          data: error.response.data,
+          status: error.response.status
+        };
+        fs.writeFileSync(licenseFilename, JSON.stringify(sanitizedResponse, null, 2));
+        return 0;
+      } else {
+        console.log(`Unexpected response status: ${error.response.status}`);
+        return -1;
+      }
     } else {
-      console.log(`Unexpected response status: ${error.response.status}`);
+      console.error('Error:', error.message);
       return -1;
     }
+
   }
 }
 
 
-export async function correctness(repositoryUrl:string) {
+export async function correctness(repositoryUrl: string) {
   const repositoryResponse = await axios.get(repositoryUrl, { headers });
   const repositoryData = repositoryResponse.data;
 
@@ -78,6 +136,16 @@ export async function correctness(repositoryUrl:string) {
   async function fetchAllIssues(page: number = 1): Promise<number> {
     try {
       const response = await axios.get(issuesUrl, { params: { ...params, page }, headers });
+
+      const [, , , user, repo] = repositoryUrl.split('/');
+      const dirName = `${user}_${repo}`;
+      if (!fs.existsSync(dirName)) {
+
+        fs.mkdirSync(dirName);
+      }
+
+      fs.writeFileSync(path.join(dirName, `issuesData_page${page}.json`), JSON.stringify(response.data, null, 2));
+
       const issues = response.data;
       totalIssues += issues.length;
       totalClosedIssues += issues.filter((issue: any) => issue.state === 'closed').length;
@@ -114,6 +182,19 @@ export async function responsiveMaintainer(repositoryUrl: string) {
   async function fetchCommentsForIssue(issue: any) {
     try {
       const response = await axios.get(issue.comments_url, { headers });
+
+      const [, , , user, repo] = repositoryUrl.split('/');
+      const dirName = `${user}_${repo}`;
+
+      // Ensure the directory exists
+      if (!fs.existsSync(dirName)) {
+        fs.mkdirSync(dirName);
+      }
+
+      // Save comments data to the file
+      const commentsFilename = path.join(dirName, `commentsData_issue${issue.number}.json`);
+      fs.writeFileSync(commentsFilename, JSON.stringify(response.data, null, 2));
+
       if (response.status === 200) {
         const comments = response.data;
         const maintainerComments = comments.filter((comment: any) => comment.user.type === 'User');
@@ -134,6 +215,8 @@ export async function responsiveMaintainer(repositoryUrl: string) {
   async function fetchAllIssues(page: number = 1): Promise<number> {
     try {
       const response = await axios.get(issuesUrl, { params: { ...params, page }, headers });
+
+
       const issues = response.data;
 
       await Promise.all(issues.slice(0, 10).map(fetchCommentsForIssue));

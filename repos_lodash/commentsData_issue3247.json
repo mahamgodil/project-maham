@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/313485840",
+    "html_url": "https://github.com/lodash/lodash/issues/3247#issuecomment-313485840",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/3247",
+    "id": 313485840,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDMxMzQ4NTg0MA==",
+    "user": {
+      "login": "jdalton",
+      "id": 4303,
+      "node_id": "MDQ6VXNlcjQzMDM=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4303?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jdalton",
+      "html_url": "https://github.com/jdalton",
+      "followers_url": "https://api.github.com/users/jdalton/followers",
+      "following_url": "https://api.github.com/users/jdalton/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jdalton/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jdalton/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jdalton/subscriptions",
+      "organizations_url": "https://api.github.com/users/jdalton/orgs",
+      "repos_url": "https://api.github.com/users/jdalton/repos",
+      "events_url": "https://api.github.com/users/jdalton/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jdalton/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2017-07-06T18:50:09Z",
+    "updated_at": "2017-12-26T13:44:51Z",
+    "author_association": "MEMBER",
+    "body": "Hi @mvanlonden!\r\n\r\nTree-shaking is a bit of a lie. Tooling tends to be overly sensitive to potential side-effects, of which Lodash has none. I recommend using [babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash) *(it works for `lodash/fp` too)* and if you're feeling adventurous combo it with [lodash-webpack-plugin](https://github.com/lodash/lodash-webpack-plugin) with the `\"currying\"` feature set enabled.\r\n\r\n**Update:**\r\n\r\nWebpack 4 will support the [`sideEffects` field](https://github.com/webpack/webpack/tree/next/examples/side-effects) which will allow for better tree-shaking support.",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/313485840/reactions",
+      "total_count": 2,
+      "+1": 2,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

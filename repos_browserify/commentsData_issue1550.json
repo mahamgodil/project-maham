@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/368007468",
+    "html_url": "https://github.com/browserify/browserify/issues/1550#issuecomment-368007468",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/1550",
+    "id": 368007468,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDM2ODAwNzQ2OA==",
+    "user": {
+      "login": "goto-bus-stop",
+      "id": 1006268,
+      "node_id": "MDQ6VXNlcjEwMDYyNjg=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1006268?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/goto-bus-stop",
+      "html_url": "https://github.com/goto-bus-stop",
+      "followers_url": "https://api.github.com/users/goto-bus-stop/followers",
+      "following_url": "https://api.github.com/users/goto-bus-stop/following{/other_user}",
+      "gists_url": "https://api.github.com/users/goto-bus-stop/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/goto-bus-stop/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/goto-bus-stop/subscriptions",
+      "organizations_url": "https://api.github.com/users/goto-bus-stop/orgs",
+      "repos_url": "https://api.github.com/users/goto-bus-stop/repos",
+      "events_url": "https://api.github.com/users/goto-bus-stop/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/goto-bus-stop/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2018-02-23T13:22:15Z",
+    "updated_at": "2018-02-23T13:22:15Z",
+    "author_association": "MEMBER",
+    "body": "Use `--no-detect-globals` on the CLI or `detectGlobals: false` with the Node API.",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/368007468/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

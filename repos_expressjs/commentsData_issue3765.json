@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/429845821",
+    "html_url": "https://github.com/expressjs/express/issues/3765#issuecomment-429845821",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/3765",
+    "id": 429845821,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDQyOTg0NTgyMQ==",
+    "user": {
+      "login": "dougwilson",
+      "id": 67512,
+      "node_id": "MDQ6VXNlcjY3NTEy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67512?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dougwilson",
+      "html_url": "https://github.com/dougwilson",
+      "followers_url": "https://api.github.com/users/dougwilson/followers",
+      "following_url": "https://api.github.com/users/dougwilson/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dougwilson/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dougwilson/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dougwilson/subscriptions",
+      "organizations_url": "https://api.github.com/users/dougwilson/orgs",
+      "repos_url": "https://api.github.com/users/dougwilson/repos",
+      "events_url": "https://api.github.com/users/dougwilson/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dougwilson/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2018-10-15T13:07:11Z",
+    "updated_at": "2018-10-15T13:07:11Z",
+    "author_association": "MEMBER",
+    "body": "```\r\napp('/', (req,res) => {\r\n  doWahateverYouWant(); \r\n}); \r\n```\r\nIs not a thing. I'm not sure what you're trying to do, but this should probably be either app.use or app.get like so:\r\n```\r\napp.use('/', (req,res) => {\r\n  doWahateverYouWant(); \r\n}); \r\n```",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/429845821/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

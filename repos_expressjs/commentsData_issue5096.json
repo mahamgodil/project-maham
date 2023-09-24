@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/1387444242",
+    "html_url": "https://github.com/expressjs/express/issues/5096#issuecomment-1387444242",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/5096",
+    "id": 1387444242,
+    "node_id": "IC_kwDOAAOeZ85SsrgS",
+    "user": {
+      "login": "dougwilson",
+      "id": 67512,
+      "node_id": "MDQ6VXNlcjY3NTEy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67512?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dougwilson",
+      "html_url": "https://github.com/dougwilson",
+      "followers_url": "https://api.github.com/users/dougwilson/followers",
+      "following_url": "https://api.github.com/users/dougwilson/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dougwilson/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dougwilson/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dougwilson/subscriptions",
+      "organizations_url": "https://api.github.com/users/dougwilson/orgs",
+      "repos_url": "https://api.github.com/users/dougwilson/repos",
+      "events_url": "https://api.github.com/users/dougwilson/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dougwilson/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2023-01-18T17:22:27Z",
+    "updated_at": "2023-01-18T17:22:27Z",
+    "author_association": "MEMBER",
+    "body": "The only part that Express.js caches is the mapping of your ahort file/view name to the full path on disk and which view engine. Some view engines will also cache the template contents, which it sounds like what you are asking about. To clear contents, you'll need to reach out to the view engine module you are using to see if that is possible.",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/1387444242/reactions",
+      "total_count": 1,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 1,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

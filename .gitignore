@@ -1,2 +1,4 @@
 .env
 node_modules/
+# every folder with repos_name will be ignored
+repos_*

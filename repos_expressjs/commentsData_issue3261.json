@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/289581592",
+    "html_url": "https://github.com/expressjs/express/issues/3261#issuecomment-289581592",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/3261",
+    "id": 289581592,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDI4OTU4MTU5Mg==",
+    "user": {
+      "login": "dougwilson",
+      "id": 67512,
+      "node_id": "MDQ6VXNlcjY3NTEy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67512?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dougwilson",
+      "html_url": "https://github.com/dougwilson",
+      "followers_url": "https://api.github.com/users/dougwilson/followers",
+      "following_url": "https://api.github.com/users/dougwilson/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dougwilson/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dougwilson/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dougwilson/subscriptions",
+      "organizations_url": "https://api.github.com/users/dougwilson/orgs",
+      "repos_url": "https://api.github.com/users/dougwilson/repos",
+      "events_url": "https://api.github.com/users/dougwilson/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dougwilson/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2017-03-27T20:49:13Z",
+    "updated_at": "2017-03-27T20:49:13Z",
+    "author_association": "MEMBER",
+    "body": "Hi @swapnilaryan you should defiantly be using a module like `cors()` instead of trying to piece together the headers and logic yourself. That being said, there is a lot that goes on for CORS. There is no known issue with cors not working with Express 4, so I would first try to use the support forum https://gitter.im/expressjs/express to work through your issue until you have a reason to believe there is a bug to fix somewhere and can articulate the bug.\r\n\r\nI hope that helps! Lots of users are around of the support forum to help, but unfortunately this is not really a support forum.",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/289581592/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/1586066056",
+    "html_url": "https://github.com/browserify/browserify/issues/2062#issuecomment-1586066056",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/2062",
+    "id": 1586066056,
+    "node_id": "IC_kwDOAA40385eiXKI",
+    "user": {
+      "login": "nohaaaaa18",
+      "id": 135643860,
+      "node_id": "U_kgDOCBXC1A",
+      "avatar_url": "https://avatars.githubusercontent.com/u/135643860?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/nohaaaaa18",
+      "html_url": "https://github.com/nohaaaaa18",
+      "followers_url": "https://api.github.com/users/nohaaaaa18/followers",
+      "following_url": "https://api.github.com/users/nohaaaaa18/following{/other_user}",
+      "gists_url": "https://api.github.com/users/nohaaaaa18/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/nohaaaaa18/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/nohaaaaa18/subscriptions",
+      "organizations_url": "https://api.github.com/users/nohaaaaa18/orgs",
+      "repos_url": "https://api.github.com/users/nohaaaaa18/repos",
+      "events_url": "https://api.github.com/users/nohaaaaa18/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/nohaaaaa18/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2023-06-11T08:06:21Z",
+    "updated_at": "2023-06-11T08:06:21Z",
+    "author_association": "NONE",
+    "body": "Wefftyy is the ",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/1586066056/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

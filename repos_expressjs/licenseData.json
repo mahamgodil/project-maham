@@ -1,0 +1,25 @@
+{
+  "name": "LICENSE",
+  "path": "LICENSE",
+  "sha": "aa927e44e31d486f807634887662efa39256bf84",
+  "size": 1249,
+  "url": "https://api.github.com/repos/expressjs/express/contents/LICENSE?ref=master",
+  "html_url": "https://github.com/expressjs/express/blob/master/LICENSE",
+  "git_url": "https://api.github.com/repos/expressjs/express/git/blobs/aa927e44e31d486f807634887662efa39256bf84",
+  "download_url": "https://raw.githubusercontent.com/expressjs/express/master/LICENSE",
+  "type": "file",
+  "content": "KFRoZSBNSVQgTGljZW5zZSkKCkNvcHlyaWdodCAoYykgMjAwOS0yMDE0IFRK\nIEhvbG93YXljaHVrIDx0akB2aXNpb24tbWVkaWEuY2E+CkNvcHlyaWdodCAo\nYykgMjAxMy0yMDE0IFJvbWFuIFNodHlsbWFuIDxzaHR5bG1hbitleHByZXNz\nanNAZ21haWwuY29tPgpDb3B5cmlnaHQgKGMpIDIwMTQtMjAxNSBEb3VnbGFz\nIENocmlzdG9waGVyIFdpbHNvbiA8ZG91Z0Bzb21ldGhpbmdkb3VnLmNvbT4K\nClBlcm1pc3Npb24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdl\nLCB0byBhbnkgcGVyc29uIG9idGFpbmluZwphIGNvcHkgb2YgdGhpcyBzb2Z0\nd2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUK\nJ1NvZnR3YXJlJyksIHRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQg\ncmVzdHJpY3Rpb24sIGluY2x1ZGluZwp3aXRob3V0IGxpbWl0YXRpb24gdGhl\nIHJpZ2h0cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1Ymxpc2gs\nCmRpc3RyaWJ1dGUsIHN1YmxpY2Vuc2UsIGFuZC9vciBzZWxsIGNvcGllcyBv\nZiB0aGUgU29mdHdhcmUsIGFuZCB0bwpwZXJtaXQgcGVyc29ucyB0byB3aG9t\nIHRoZSBTb2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3Qg\ndG8KdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOgoKVGhlIGFib3ZlIGNvcHly\naWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwg\nYmUKaW5jbHVkZWQgaW4gYWxsIGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0\naW9ucyBvZiB0aGUgU29mdHdhcmUuCgpUSEUgU09GVFdBUkUgSVMgUFJPVklE\nRUQgJ0FTIElTJywgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lORCwKRVhQ\nUkVTUyBPUiBJTVBMSUVELCBJTkNMVURJTkcgQlVUIE5PVCBMSU1JVEVEIFRP\nIFRIRSBXQVJSQU5USUVTIE9GCk1FUkNIQU5UQUJJTElUWSwgRklUTkVTUyBG\nT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC4K\nSU4gTk8gRVZFTlQgU0hBTEwgVEhFIEFVVEhPUlMgT1IgQ09QWVJJR0hUIEhP\nTERFUlMgQkUgTElBQkxFIEZPUiBBTlkKQ0xBSU0sIERBTUFHRVMgT1IgT1RI\nRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFD\nVCwKVE9SVCBPUiBPVEhFUldJU0UsIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9S\nIElOIENPTk5FQ1RJT04gV0lUSCBUSEUKU09GVFdBUkUgT1IgVEhFIFVTRSBP\nUiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCg==\n",
+  "encoding": "base64",
+  "_links": {
+    "self": "https://api.github.com/repos/expressjs/express/contents/LICENSE?ref=master",
+    "git": "https://api.github.com/repos/expressjs/express/git/blobs/aa927e44e31d486f807634887662efa39256bf84",
+    "html": "https://github.com/expressjs/express/blob/master/LICENSE"
+  },
+  "license": {
+    "key": "mit",
+    "name": "MIT License",
+    "spdx_id": "MIT",
+    "url": "https://api.github.com/licenses/mit",
+    "node_id": "MDc6TGljZW5zZTEz"
+  }
+}

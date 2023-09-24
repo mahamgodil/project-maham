@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/514377316",
+    "html_url": "https://github.com/lodash/lodash/issues/4385#issuecomment-514377316",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/4385",
+    "id": 514377316,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDUxNDM3NzMxNg==",
+    "user": {
+      "login": "jdalton",
+      "id": 4303,
+      "node_id": "MDQ6VXNlcjQzMDM=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4303?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jdalton",
+      "html_url": "https://github.com/jdalton",
+      "followers_url": "https://api.github.com/users/jdalton/followers",
+      "following_url": "https://api.github.com/users/jdalton/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jdalton/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jdalton/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jdalton/subscriptions",
+      "organizations_url": "https://api.github.com/users/jdalton/orgs",
+      "repos_url": "https://api.github.com/users/jdalton/repos",
+      "events_url": "https://api.github.com/users/jdalton/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jdalton/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2019-07-23T20:46:45Z",
+    "updated_at": "2019-07-23T20:46:45Z",
+    "author_association": "MEMBER",
+    "body": "Hi @ahsan-mian!\r\n\r\nThe reasoning is covered at https://github.com/lodash/lodash/issues/2490#issuecomment-231597691.",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/514377316/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

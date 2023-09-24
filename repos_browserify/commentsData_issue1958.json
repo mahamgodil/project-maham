@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/613773451",
+    "html_url": "https://github.com/browserify/browserify/issues/1958#issuecomment-613773451",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/1958",
+    "id": 613773451,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDYxMzc3MzQ1MQ==",
+    "user": {
+      "login": "danijar",
+      "id": 2111293,
+      "node_id": "MDQ6VXNlcjIxMTEyOTM=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2111293?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/danijar",
+      "html_url": "https://github.com/danijar",
+      "followers_url": "https://api.github.com/users/danijar/followers",
+      "following_url": "https://api.github.com/users/danijar/following{/other_user}",
+      "gists_url": "https://api.github.com/users/danijar/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/danijar/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/danijar/subscriptions",
+      "organizations_url": "https://api.github.com/users/danijar/orgs",
+      "repos_url": "https://api.github.com/users/danijar/repos",
+      "events_url": "https://api.github.com/users/danijar/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/danijar/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2020-04-15T02:06:43Z",
+    "updated_at": "2020-04-15T02:06:43Z",
+    "author_association": "NONE",
+    "body": "Seems like the approach is working. I didn't find the reason for this error, but starting the project from scratch helped.",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/613773451/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]
