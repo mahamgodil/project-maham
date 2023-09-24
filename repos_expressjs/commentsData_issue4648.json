@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/884373931",
+    "html_url": "https://github.com/expressjs/express/issues/4648#issuecomment-884373931",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/4648",
+    "id": 884373931,
+    "node_id": "IC_kwDOAAOeZ840tnmr",
+    "user": {
+      "login": "rodion-arr",
+      "id": 5843270,
+      "node_id": "MDQ6VXNlcjU4NDMyNzA=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5843270?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/rodion-arr",
+      "html_url": "https://github.com/rodion-arr",
+      "followers_url": "https://api.github.com/users/rodion-arr/followers",
+      "following_url": "https://api.github.com/users/rodion-arr/following{/other_user}",
+      "gists_url": "https://api.github.com/users/rodion-arr/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/rodion-arr/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/rodion-arr/subscriptions",
+      "organizations_url": "https://api.github.com/users/rodion-arr/orgs",
+      "repos_url": "https://api.github.com/users/rodion-arr/repos",
+      "events_url": "https://api.github.com/users/rodion-arr/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/rodion-arr/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2021-07-21T17:47:40Z",
+    "updated_at": "2021-07-21T17:48:33Z",
+    "author_association": "MEMBER",
+    "body": "Hi, I assume in this case you need to submit a form with selected option (`Apple/Orange`) back to server, check what was selected, pick correct price, pass it to pug and rerender it with this separate variable.\r\n\r\nOtherwise it looks like a front-end task, where you can use `onchange` event to update `<h1>` content.\r\n\r\nClosing as it does not look like an issue with Express.",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/884373931/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

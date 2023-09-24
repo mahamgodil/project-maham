@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/599436009",
+    "html_url": "https://github.com/lodash/lodash/issues/4697#issuecomment-599436009",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/4697",
+    "id": 599436009,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDU5OTQzNjAwOQ==",
+    "user": {
+      "login": "JellyLu",
+      "id": 4011728,
+      "node_id": "MDQ6VXNlcjQwMTE3Mjg=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4011728?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/JellyLu",
+      "html_url": "https://github.com/JellyLu",
+      "followers_url": "https://api.github.com/users/JellyLu/followers",
+      "following_url": "https://api.github.com/users/JellyLu/following{/other_user}",
+      "gists_url": "https://api.github.com/users/JellyLu/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/JellyLu/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/JellyLu/subscriptions",
+      "organizations_url": "https://api.github.com/users/JellyLu/orgs",
+      "repos_url": "https://api.github.com/users/JellyLu/repos",
+      "events_url": "https://api.github.com/users/JellyLu/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/JellyLu/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2020-03-16T09:37:44Z",
+    "updated_at": "2020-03-16T09:37:44Z",
+    "author_association": "NONE",
+    "body": "Misunderstood the second parameter. Close this issue. ",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/599436009/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

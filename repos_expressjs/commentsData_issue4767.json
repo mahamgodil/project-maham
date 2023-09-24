@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/1005639226",
+    "html_url": "https://github.com/expressjs/express/pull/4767#issuecomment-1005639226",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/4767",
+    "id": 1005639226,
+    "node_id": "IC_kwDOAAOeZ8478NY6",
+    "user": {
+      "login": "agnilondapakou",
+      "id": 61798464,
+      "node_id": "MDQ6VXNlcjYxNzk4NDY0",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61798464?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/agnilondapakou",
+      "html_url": "https://github.com/agnilondapakou",
+      "followers_url": "https://api.github.com/users/agnilondapakou/followers",
+      "following_url": "https://api.github.com/users/agnilondapakou/following{/other_user}",
+      "gists_url": "https://api.github.com/users/agnilondapakou/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/agnilondapakou/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/agnilondapakou/subscriptions",
+      "organizations_url": "https://api.github.com/users/agnilondapakou/orgs",
+      "repos_url": "https://api.github.com/users/agnilondapakou/repos",
+      "events_url": "https://api.github.com/users/agnilondapakou/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/agnilondapakou/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2022-01-05T12:20:49Z",
+    "updated_at": "2022-01-05T12:20:49Z",
+    "author_association": "NONE",
+    "body": "Good",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/1005639226/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

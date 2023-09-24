@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/341269145",
+    "html_url": "https://github.com/expressjs/express/issues/3466#issuecomment-341269145",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/3466",
+    "id": 341269145,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDM0MTI2OTE0NQ==",
+    "user": {
+      "login": "dougwilson",
+      "id": 67512,
+      "node_id": "MDQ6VXNlcjY3NTEy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67512?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/dougwilson",
+      "html_url": "https://github.com/dougwilson",
+      "followers_url": "https://api.github.com/users/dougwilson/followers",
+      "following_url": "https://api.github.com/users/dougwilson/following{/other_user}",
+      "gists_url": "https://api.github.com/users/dougwilson/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/dougwilson/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/dougwilson/subscriptions",
+      "organizations_url": "https://api.github.com/users/dougwilson/orgs",
+      "repos_url": "https://api.github.com/users/dougwilson/repos",
+      "events_url": "https://api.github.com/users/dougwilson/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/dougwilson/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2017-11-01T23:04:21Z",
+    "updated_at": "2017-11-01T23:04:21Z",
+    "author_association": "MEMBER",
+    "body": "For `req.query`, depending on your `query parser` setting you are either using the [`qs` module](https://www.npmjs.com/package/qs) (default) or the [`querystring` module](https://nodejs.org/dist/latest-v9.x/docs/api/querystring.html), so the types would depend on the features of those modules. For `req.params`, you can use the [`app.param` feature](http://expressjs.com/en/4x/api.html#app.param) to parse the URL pieces into the types you are expecting.\r\n\r\nIf you are looking for further help, please stop by our support channel https://gitter.im/expressjs/express",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/341269145/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

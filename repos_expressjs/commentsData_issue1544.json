@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/14998465",
+    "html_url": "https://github.com/expressjs/express/issues/1544#issuecomment-14998465",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/1544",
+    "id": 14998465,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDE0OTk4NDY1",
+    "user": {
+      "login": "tj",
+      "id": 25254,
+      "node_id": "MDQ6VXNlcjI1MjU0",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25254?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/tj",
+      "html_url": "https://github.com/tj",
+      "followers_url": "https://api.github.com/users/tj/followers",
+      "following_url": "https://api.github.com/users/tj/following{/other_user}",
+      "gists_url": "https://api.github.com/users/tj/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/tj/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/tj/subscriptions",
+      "organizations_url": "https://api.github.com/users/tj/orgs",
+      "repos_url": "https://api.github.com/users/tj/repos",
+      "events_url": "https://api.github.com/users/tj/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/tj/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2013-03-16T03:06:45Z",
+    "updated_at": "2013-03-16T03:06:45Z",
+    "author_association": "MEMBER",
+    "body": "tailoring anything to coffeescript wont ever happen sorry \n",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/14998465/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

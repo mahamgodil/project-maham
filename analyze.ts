@@ -14,18 +14,18 @@ export async function analyzeDependencies(URL_FILE: string) {
         for (const url of urls) {
             console.log('in for loop, url: ' + url);
             if (url.includes('npmjs.com')) {
-                console.log("IN NPM LOOP");
+                // console.log("IN NPM LOOP");
                 const packageName = url.split('/').pop();
                 if (!packageName) {
                     throw new Error(`Invalid URL: ${url}`);
                 }
                 const data = await fetchNpmDataWithAxios(packageName);
                 const repositoryUrl = getGithubUrlFromNpmData(data);
-                console.log("repo url", repositoryUrl);
+                // console.log("repo url", repositoryUrl);
                 // Convert the GitHub URL to its respective GitHub API URL
                 if (repositoryUrl) { // Check if repositoryUrl is not null
                     const newUrl = repositoryUrl.replace('github.com', 'api.github.com/repos');
-                    console.log('newUrl:', newUrl);
+                    // console.log('newUrl:', newUrl);
     
                     const rampUpResult = await rampUp(newUrl);
                     const CorrectnessResult = await correctness(newUrl);

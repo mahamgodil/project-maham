@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/450144869",
+    "html_url": "https://github.com/lodash/lodash/pull/1537#issuecomment-450144869",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/1537",
+    "id": 450144869,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDQ1MDE0NDg2OQ==",
+    "user": {
+      "login": "lock[bot]",
+      "id": 33595554,
+      "node_id": "MDM6Qm90MzM1OTU1NTQ=",
+      "avatar_url": "https://avatars.githubusercontent.com/in/6672?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/lock%5Bbot%5D",
+      "html_url": "https://github.com/apps/lock",
+      "followers_url": "https://api.github.com/users/lock%5Bbot%5D/followers",
+      "following_url": "https://api.github.com/users/lock%5Bbot%5D/following{/other_user}",
+      "gists_url": "https://api.github.com/users/lock%5Bbot%5D/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/lock%5Bbot%5D/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/lock%5Bbot%5D/subscriptions",
+      "organizations_url": "https://api.github.com/users/lock%5Bbot%5D/orgs",
+      "repos_url": "https://api.github.com/users/lock%5Bbot%5D/repos",
+      "events_url": "https://api.github.com/users/lock%5Bbot%5D/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/lock%5Bbot%5D/received_events",
+      "type": "Bot",
+      "site_admin": false
+    },
+    "created_at": "2018-12-27T12:49:20Z",
+    "updated_at": "2018-12-27T12:49:20Z",
+    "author_association": "NONE",
+    "body": "This thread has been automatically locked since there has not been any recent activity after it was closed. Please open a new issue for related bugs.\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/450144869/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

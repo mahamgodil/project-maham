@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/expressjs/express/issues/comments/984278523",
+    "html_url": "https://github.com/expressjs/express/pull/4765#issuecomment-984278523",
+    "issue_url": "https://api.github.com/repos/expressjs/express/issues/4765",
+    "id": 984278523,
+    "node_id": "IC_kwDOAAOeZ846quX7",
+    "user": {
+      "login": "gyadesa",
+      "id": 20189764,
+      "node_id": "MDQ6VXNlcjIwMTg5NzY0",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20189764?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/gyadesa",
+      "html_url": "https://github.com/gyadesa",
+      "followers_url": "https://api.github.com/users/gyadesa/followers",
+      "following_url": "https://api.github.com/users/gyadesa/following{/other_user}",
+      "gists_url": "https://api.github.com/users/gyadesa/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/gyadesa/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/gyadesa/subscriptions",
+      "organizations_url": "https://api.github.com/users/gyadesa/orgs",
+      "repos_url": "https://api.github.com/users/gyadesa/repos",
+      "events_url": "https://api.github.com/users/gyadesa/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/gyadesa/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2021-12-02T04:18:33Z",
+    "updated_at": "2021-12-02T04:19:33Z",
+    "author_association": "NONE",
+    "body": "Update",
+    "reactions": {
+      "url": "https://api.github.com/repos/expressjs/express/issues/comments/984278523/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

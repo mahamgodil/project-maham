@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/browserify/browserify/issues/comments/34680865",
+    "html_url": "https://github.com/browserify/browserify/issues/645#issuecomment-34680865",
+    "issue_url": "https://api.github.com/repos/browserify/browserify/issues/645",
+    "id": 34680865,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDM0NjgwODY1",
+    "user": {
+      "login": "srolel",
+      "id": 5153007,
+      "node_id": "MDQ6VXNlcjUxNTMwMDc=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5153007?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/srolel",
+      "html_url": "https://github.com/srolel",
+      "followers_url": "https://api.github.com/users/srolel/followers",
+      "following_url": "https://api.github.com/users/srolel/following{/other_user}",
+      "gists_url": "https://api.github.com/users/srolel/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/srolel/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/srolel/subscriptions",
+      "organizations_url": "https://api.github.com/users/srolel/orgs",
+      "repos_url": "https://api.github.com/users/srolel/repos",
+      "events_url": "https://api.github.com/users/srolel/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/srolel/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2014-02-10T20:52:38Z",
+    "updated_at": "2014-02-10T20:52:38Z",
+    "author_association": "NONE",
+    "body": "Solved by replacing jison's web of export statements to a simple exports.parser = parser;\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/browserify/browserify/issues/comments/34680865/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

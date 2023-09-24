@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/cloudinary/cloudinary_npm/issues/comments/1704859886",
+    "html_url": "https://github.com/cloudinary/cloudinary_npm/issues/627#issuecomment-1704859886",
+    "issue_url": "https://api.github.com/repos/cloudinary/cloudinary_npm/issues/627",
+    "id": 1704859886,
+    "node_id": "IC_kwDOAEh2wM5lnhju",
+    "user": {
+      "login": "tamaracloudinary",
+      "id": 98945360,
+      "node_id": "U_kgDOBeXJUA",
+      "avatar_url": "https://avatars.githubusercontent.com/u/98945360?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/tamaracloudinary",
+      "html_url": "https://github.com/tamaracloudinary",
+      "followers_url": "https://api.github.com/users/tamaracloudinary/followers",
+      "following_url": "https://api.github.com/users/tamaracloudinary/following{/other_user}",
+      "gists_url": "https://api.github.com/users/tamaracloudinary/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/tamaracloudinary/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/tamaracloudinary/subscriptions",
+      "organizations_url": "https://api.github.com/users/tamaracloudinary/orgs",
+      "repos_url": "https://api.github.com/users/tamaracloudinary/repos",
+      "events_url": "https://api.github.com/users/tamaracloudinary/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/tamaracloudinary/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2023-09-04T08:44:53Z",
+    "updated_at": "2023-09-04T08:44:53Z",
+    "author_association": "CONTRIBUTOR",
+    "body": "Hi @florestankorp, thanks for reporting this issue. We've opened a new internal ticket to address it. We have plans to resolve it in our upcoming sprint. We'll keep you updated right here as soon as the fix is deployed.\r\nThanks for your valuable feedback,\r\nTamara",
+    "reactions": {
+      "url": "https://api.github.com/repos/cloudinary/cloudinary_npm/issues/comments/1704859886/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/768243307",
+    "html_url": "https://github.com/lodash/lodash/issues/5041#issuecomment-768243307",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/5041",
+    "id": 768243307,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDc2ODI0MzMwNw==",
+    "user": {
+      "login": "falsyvalues",
+      "id": 1199350,
+      "node_id": "MDQ6VXNlcjExOTkzNTA=",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1199350?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/falsyvalues",
+      "html_url": "https://github.com/falsyvalues",
+      "followers_url": "https://api.github.com/users/falsyvalues/followers",
+      "following_url": "https://api.github.com/users/falsyvalues/following{/other_user}",
+      "gists_url": "https://api.github.com/users/falsyvalues/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/falsyvalues/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/falsyvalues/subscriptions",
+      "organizations_url": "https://api.github.com/users/falsyvalues/orgs",
+      "repos_url": "https://api.github.com/users/falsyvalues/repos",
+      "events_url": "https://api.github.com/users/falsyvalues/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/falsyvalues/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2021-01-27T12:09:57Z",
+    "updated_at": "2021-01-27T12:09:57Z",
+    "author_association": "MEMBER",
+    "body": "Hi @nimasrn!\r\n\r\nI will try to use a quote to give an answer, we tend to use things that works for us.\r\n\r\n> move files around until it feels right\r\n\r\nhttp://react-file-structure.surge.sh/",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/768243307/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

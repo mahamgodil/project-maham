@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/1206504156",
+    "html_url": "https://github.com/lodash/lodash/issues/5402#issuecomment-1206504156",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/5402",
+    "id": 1206504156,
+    "node_id": "IC_kwDOADxbv85H6crc",
+    "user": {
+      "login": "UndefinedCpp",
+      "id": 39729414,
+      "node_id": "MDQ6VXNlcjM5NzI5NDE0",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39729414?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/UndefinedCpp",
+      "html_url": "https://github.com/UndefinedCpp",
+      "followers_url": "https://api.github.com/users/UndefinedCpp/followers",
+      "following_url": "https://api.github.com/users/UndefinedCpp/following{/other_user}",
+      "gists_url": "https://api.github.com/users/UndefinedCpp/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/UndefinedCpp/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/UndefinedCpp/subscriptions",
+      "organizations_url": "https://api.github.com/users/UndefinedCpp/orgs",
+      "repos_url": "https://api.github.com/users/UndefinedCpp/repos",
+      "events_url": "https://api.github.com/users/UndefinedCpp/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/UndefinedCpp/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2022-08-05T14:13:35Z",
+    "updated_at": "2022-08-05T14:13:35Z",
+    "author_association": "NONE",
+    "body": "这不是bug，是浮点数精度的底层问题，不信你可以试试 `0.3-0.2===0.1`，返回`false`",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/1206504156/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]

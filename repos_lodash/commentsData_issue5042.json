@@ -1,0 +1,46 @@
+[
+  {
+    "url": "https://api.github.com/repos/lodash/lodash/issues/comments/751989914",
+    "html_url": "https://github.com/lodash/lodash/issues/5042#issuecomment-751989914",
+    "issue_url": "https://api.github.com/repos/lodash/lodash/issues/5042",
+    "id": 751989914,
+    "node_id": "MDEyOklzc3VlQ29tbWVudDc1MTk4OTkxNA==",
+    "user": {
+      "login": "arash-bizcover",
+      "id": 62287461,
+      "node_id": "MDQ6VXNlcjYyMjg3NDYx",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62287461?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/arash-bizcover",
+      "html_url": "https://github.com/arash-bizcover",
+      "followers_url": "https://api.github.com/users/arash-bizcover/followers",
+      "following_url": "https://api.github.com/users/arash-bizcover/following{/other_user}",
+      "gists_url": "https://api.github.com/users/arash-bizcover/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/arash-bizcover/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/arash-bizcover/subscriptions",
+      "organizations_url": "https://api.github.com/users/arash-bizcover/orgs",
+      "repos_url": "https://api.github.com/users/arash-bizcover/repos",
+      "events_url": "https://api.github.com/users/arash-bizcover/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/arash-bizcover/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "created_at": "2020-12-29T08:12:14Z",
+    "updated_at": "2020-12-29T08:12:14Z",
+    "author_association": "NONE",
+    "body": "Found the answer:\r\n```javascript\r\nlet x = _.filter([\"aaa\",\"bbb\"], _.partial(_.startsWith,_,'a'))\r\n```\r\n\r\nbut no good, that was more than just simply creating anonymous function:\r\n```javascript\r\nlet x = _.filter([\"aaa\",\"bbb\"], i=> _.startsWith(i,\"a\"))\r\n```\r\n",
+    "reactions": {
+      "url": "https://api.github.com/repos/lodash/lodash/issues/comments/751989914/reactions",
+      "total_count": 0,
+      "+1": 0,
+      "-1": 0,
+      "laugh": 0,
+      "hooray": 0,
+      "confused": 0,
+      "heart": 0,
+      "rocket": 0,
+      "eyes": 0
+    },
+    "performed_via_github_app": null
+  }
+]
