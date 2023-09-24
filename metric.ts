@@ -7,6 +7,22 @@ const http = require('isomorphic-git/http/node');
 const tmp = require('tmp');
 // https://www.npmjs.com/package/express
 // https://www.npmjs.com/package/browserify
+import winston from 'winston';
+const logLevels = ['error', 'info', 'debug'];
+const logLevel = logLevels[Number(process.env.LOG_LEVEL) || 0];
+const logFile = process.env.LOG_FILE || 'default.log';
+
+if (!fs.existsSync(logFile)) {
+    fs.writeFileSync(logFile, '');
+}
+
+const logger = winston.createLogger({
+    level: logLevel,
+    format: winston.format.simple(),
+    transports: [
+        new winston.transports.File({ filename: logFile })
+    ]
+});
 
 const token = process.env.GITHUB_API_TOKEN;
 //const repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
@@ -61,7 +77,7 @@ export async function busFactor(repositoryUrl: string) {
 
 export async function license(repositoryUrl: string) {
   try {
-    
+
     const licenseUrl = `${repositoryUrl}/license`;
     // console.log("licenseUrl", licenseUrl);
     const LicenseResponse = await axios.get(licenseUrl, { headers });
@@ -107,11 +123,13 @@ export async function license(repositoryUrl: string) {
         fs.writeFileSync(licenseFilename, JSON.stringify(sanitizedResponse, null, 2));
         return 0;
       } else {
-        console.log(`Unexpected response status: ${error.response.status}`);
+        // console.log(`Unexpected response status: ${error.response.status}`);
+        logger.error(`Unexpected response status: ${error.response.status}`);
         return -1;
       }
     } else {
-      console.error('Error:', error.message);
+      // console.error('Error:', error.message);
+      logger.error('Error:', error.message);
       return -1;
     }
 
@@ -156,11 +174,13 @@ export async function correctness(repositoryUrl: string) {
         return await fetchAllIssues(nextPage);
       } else {
         const bugPercentage = (totalClosedIssues / totalIssues);
-        console.log(`Correctness: ${bugPercentage.toFixed(5)}`);
+        // console.log(`Correctness: ${bugPercentage.toFixed(5)}`);
+        logger.info(`Correctness: ${bugPercentage.toFixed(5)}`);
         return bugPercentage;
       }
     } catch (error) {
-      console.error('Error making API request:', error);
+      // console.error('Error making API request:', error);
+      logger.error('Error making API request:', error);
       return 0; // You might want to decide on a more appropriate default value
     }
   }
@@ -208,7 +228,8 @@ export async function responsiveMaintainer(repositoryUrl: string) {
         }
       }
     } catch (error) {
-      console.error('Error fetching comments for issue:', error);
+      // console.error('Error fetching comments for issue:', error);
+      logger.error('Error fetching comments for issue:', error);
     }
   }
 
@@ -227,40 +248,148 @@ export async function responsiveMaintainer(repositoryUrl: string) {
         return await fetchAllIssues(nextPage);
       } else {
         const averageResponseTime = totalResponseTime / totalIssues / 100;
-        console.log(`ResponsiveMaintainer: ${averageResponseTime}`);
+        // console.log(`ResponsiveMaintainer: ${averageResponseTime}`);
+        logger.info(`ResponsiveMaintainer: ${averageResponseTime}`);
         return averageResponseTime;
       }
     } catch (error) {
-      console.error('Error making API request:', error);
+      // console.error('Error making API request:', error);
+      logger.error('Error making API request:', error);
       return 0; // You might want to decide on a more appropriate default value
     }
   }
 
   return await fetchAllIssues();
 }
+function timeoutPromise(ms: number): Promise<void> {
+  return new Promise((_, reject) => {
+    setTimeout(() => {
+      reject(new Error(`Operation timed out after ${ms} milliseconds`));
+    }, ms);
+  });
+}
 
-export async function rampUp(repositoryUrl:string) {
+async function getFileSize(filePath: string): Promise<number> {
+  // console.log("Getting file size");
+  try {
+    const stats = await fs.promises.stat(filePath);
+    // ... rest of your code ...
+    return stats.size;
+} catch (error) {
+    console.error(`Error processing file ${filePath}:`, error);
+    return 0;
+}
+  
+}
+
+async function getDirectorySize(directory: string, excludeFile?: string): Promise<number> {
+  // console.log("Getting directory size");
+  const files = await fs.promises.readdir(directory);
+  let size = 0;
+
+  for (const file of files) {
+    // console.log("Getting file size");
+    if (excludeFile && path.join(directory, file) === excludeFile) continue;
+
+    const filePath = path.join(directory, file);
+    const stats = await fs.promises.stat(filePath);
+    // console.log("Stats:", stats);
+
+    if (stats.isDirectory()) {
+      size += await getDirectorySize(filePath, excludeFile);
+    } else {
+      size += stats.size;
+    }
+  }
+
+  return size;
+}
+
+export async function cloneRepository(repositoryUrl: string): Promise<string> {
   try {
     const tempDir = tmp.dirSync({ unsafeCleanup: true, prefix: 'temp-' });
     const localDir = tempDir.name;
     const userAgent = 'UAgent';
-    console.log("Awaiting clone");
-    function cloneRepo(): Promise<void> {
-      Promise.race([clone({
+    // console.log("Awaiting clone");
+    logger.info("Awaiting clone");
+
+    await Promise.race([
+      clone({
         fs,
         http,
-        url: "https://github.com/nytimes/covid-19-data",
+        url: "https://github.com/cloudinary/cloudinary_npm",
         dir: localDir,
         onAuth: () => ({ token }),
         headers: {
           'User-Agent': userAgent,
         },
-      })]);
-    }
-    console.log("Cloned Repo");
-    tempDir.removeCallback();
+      }),
+      timeoutPromise(10000)
+    ]);
+    // console.log("Repository cloned to:", localDir);
+
+
+    // console.log("Cloned Repo");
+    logger.info("Cloned Repo");
+    return localDir; // Return the local directory path where repo was cloned
   } catch (error) {
-    console.error('Error cloning repository:', error);
+    if (error instanceof Error) {
+      console.error('Error cloning repository:', error.message);
+    } else {
+      console.error('Error cloning repository:', error);
+    }
+    return '';
   }
-  return -1;
+}
+
+
+
+export async function rampUp(repositoryUrl: string): Promise<number> {
+  try {
+    const tempDir = tmp.dirSync({ unsafeCleanup: true, prefix: 'temp-' });
+    const localDir = await cloneRepository(repositoryUrl); // Call cloneRepository instead of rampUp
+
+    if (!localDir) {
+      throw new Error('Failed to clone repository');
+    }
+
+    const readmePaths = [
+      path.join(localDir, 'README.md'),
+      path.join(localDir, 'readme.md'),
+      path.join(localDir, 'README.MD')
+    ];
+
+    let readmeSize = 0;
+    for (const readmePath of readmePaths) {
+      try {
+        // console.log("Getting file size: ", readmePath);
+        logger.debug("Getting file size: ", readmePath);
+        readmeSize = await getFileSize(readmePath);
+        break; // If a valid README file is found, exit the loop
+      } catch (err) {
+        // console.error('Error getting README file size:', err);
+        logger.error('Error getting README file size:', err);
+        // File not found or another error. Continue to next possible README path
+      }
+    }
+
+    const codebaseSize = await getDirectorySize(localDir, readmePaths.find(p => fs.existsSync(p)));
+
+    const ratio = Math.log(readmeSize + 1) / Math.log(codebaseSize + 1);
+
+
+
+    tempDir.removeCallback();
+
+    return ratio;
+  } catch (error) {
+    if (error instanceof Error) {
+      // console.error('Error analyzing repository:', error.message);
+      logger.error('Error analyzing repository:', error.message);
+    } else {
+      // console.error('Error analyzing repository:', error);
+      logger.error('Error analyzing repository:', error);
+    }
+    return -1;
+  }
 }
