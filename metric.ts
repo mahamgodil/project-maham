@@ -10,7 +10,10 @@ const logLevels = ['error', 'info', 'debug'];
 const logLevel = logLevels[Number(process.env.LOG_LEVEL) || 0];
 const logFile = process.env.LOG_FILE || 'default.log';
 
-if (!fs.existsSync(logFile)) {
+if (!logFile || !logFile.trim()) {
+    console.error('LOG_FILE environment variable is not set or is an empty string.');
+    process.exit(1);
+} else if (!fs.existsSync(logFile)) {
     fs.writeFileSync(logFile, '');
 }
 
