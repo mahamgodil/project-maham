@@ -1,20 +1,18 @@
 import axios from 'axios';
-require('dotenv').config();
 import path from 'path';
+import winston from 'winston';
 const { clone } = require('isomorphic-git');
 const fs = require('fs');
 const http = require('isomorphic-git/http/node');
 const tmp = require('tmp');
-// https://www.npmjs.com/package/express
-// https://www.npmjs.com/package/browserify
-import winston from 'winston';
+// Extracting environment variables
 const logLevels = ['error', 'info', 'debug'];
 const logLevel = logLevels[Number(process.env.LOG_LEVEL) || 0];
-const logFile = process.env.LOG_FILE || 'default.log';
+const logFile = process.env.LOG_FILE;
+const token = process.env.GITHUB_TOKEN;
 
-if (!fs.existsSync(logFile)) {
-    fs.writeFileSync(logFile, '');
-}
+// Check if the necessary environment variables are set
+
 
 const logger = winston.createLogger({
     level: logLevel,
@@ -24,13 +22,23 @@ const logger = winston.createLogger({
     ]
 });
 
-const token = process.env.GITHUB_API_TOKEN;
-//const repositoryUrl = 'https://api.github.com/repos/nytimes/covid-19-data'; // must be in form https://api.github.com/repos/${Owner}/${Name}
+if (!token || !token.trim()) {
+  logger.error('GITHUB_TOKEN environment variable is not set or is an empty string.');
+  process.exit(1);
+}
+
+if (!logFile || !logFile.trim()) {
+  logger.error('LOG_FILE environment variable is not set or is an empty string.');
+  process.exit(1);
+} else if (!fs.existsSync(logFile)) {
+  fs.writeFileSync(logFile, '');
+}
 
 // Authenticate with GitHub
 const headers = {
   Authorization: `Bearer ${token}`,
 };
+
 
 
 export async function busFactor(repositoryUrl: string) {
@@ -73,10 +81,11 @@ export async function busFactor(repositoryUrl: string) {
       return 1;
     }
     else {
-      return (sigLength / 10).toFixed(1);
+      return parseFloat((sigLength / 10).toFixed(1)) ;
     }
   } catch (error: any) {
-    console.error('Error:', error.message);
+    // console.error('Error:', error.message);
+    logger.error('Error:', error.message);
     return -1;  // or throw the error if you want to handle it outside this function
   }
 }
@@ -192,7 +201,7 @@ export async function correctness(repositoryUrl: string) {
   }
 
   var perc = await fetchAllIssues();
-  return (perc * .9).toFixed(1)
+  return parseFloat((perc * .9).toFixed(1));
 }
 
 export async function responsiveMaintainer(repositoryUrl: string) {
@@ -285,10 +294,10 @@ async function getFileSize(filePath: string): Promise<number> {
   // console.log("Getting file size");
   try {
     const stats = await fs.promises.stat(filePath);
-    // ... rest of your code ...
     return stats.size;
 } catch (error) {
-    console.error(`Error processing file ${filePath}:`, error);
+    // console.error(`Error processing file ${filePath}:`, error);
+    logger.error(`Error processing file ${filePath}:`, error);
     return 0;
 }
   
@@ -322,6 +331,7 @@ export async function cloneRepository(repositoryUrl: string): Promise<string> {
     const tempDir = tmp.dirSync({ unsafeCleanup: true, prefix: 'temp-' });
     const localDir = tempDir.name;
     const userAgent = 'UAgent';
+    const newURL = repositoryUrl.replace('api.github.com/repos', 'github.com');
     // console.log("Awaiting clone");
     logger.info("Awaiting clone");
 
@@ -329,7 +339,7 @@ export async function cloneRepository(repositoryUrl: string): Promise<string> {
       clone({
         fs,
         http,
-        url: "https://github.com/cloudinary/cloudinary_npm",
+        url: newURL,
         dir: localDir,
         onAuth: () => ({ token }),
         headers: {
@@ -346,9 +356,12 @@ export async function cloneRepository(repositoryUrl: string): Promise<string> {
     return localDir; // Return the local directory path where repo was cloned
   } catch (error) {
     if (error instanceof Error) {
-      console.error('Error cloning repository:', error.message);
+      // console.error('Error cloning repository:', error.message);
+      logger.error('Error cloning repository:', error.message);
     } else {
-      console.error('Error cloning repository:', error);
+      // console.error('Error cloning repository:', error);
+      logger.error('Error cloning repository:', error);
+
     }
     return '';
   }

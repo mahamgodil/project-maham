@@ -2,7 +2,26 @@ const axios = require('axios');
 const { busFactor, license, correctness, responsiveMaintainer } = require('./metric');
 const fs = require('fs');
 
+process.env.GITHUB_TOKEN = "mock-token";
+process.env.LOG_FILE = "./mock-log.log";
+
 jest.mock('axios');
+jest.mock('winston', () => ({
+  createLogger: jest.fn(() => ({
+      info: jest.fn(),
+      warn: jest.fn(),
+      error: jest.fn(),
+      debug: jest.fn()
+  })),
+  format: {
+      simple: jest.fn()
+  },
+  transports: {
+      Console: jest.fn(),
+      File: jest.fn()
+  }
+}));
+
 
 function getMockDataPath(repositoryUrl, dataType) {
   const parts = repositoryUrl.split('/');

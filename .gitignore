@@ -3,3 +3,8 @@ node_modules/
 # every folder with repos_name will be ignored
 repos_*
 logs.log
+helper.py
+one_url.txt
+checker.py
+default.log
+test_output.json
