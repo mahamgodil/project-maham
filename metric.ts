@@ -66,7 +66,13 @@ export async function busFactor(repositoryUrl: string) {
     );
 
     // console.log("BusFactor:", significantContributors.length);
-    return significantContributors.length;
+    var sigLength = significantContributors.length;
+    if(sigLength > 10) {
+      return 1;
+    }
+    else {
+      return (sigLength / 10).toFixed(1);
+    }
   } catch (error: any) {
     console.error('Error:', error.message);
     return -1;  // or throw the error if you want to handle it outside this function
@@ -183,7 +189,8 @@ export async function correctness(repositoryUrl: string) {
     }
   }
 
-  return await fetchAllIssues();
+  var perc = await fetchAllIssues();
+  return (perc * .9).toFixed(1)
 }
 
 export async function responsiveMaintainer(repositoryUrl: string) {
@@ -248,7 +255,12 @@ export async function responsiveMaintainer(repositoryUrl: string) {
         const averageResponseTime = totalResponseTime / totalIssues / 100;
         // console.log(`ResponsiveMaintainer: ${averageResponseTime}`);
         logger.info(`ResponsiveMaintainer: ${averageResponseTime}`);
-        return averageResponseTime;
+        if(averageResponseTime > 10) {
+          return 0;
+        }
+        else {
+          return parseFloat(((10 - averageResponseTime) / 10).toFixed(1));
+        }
       }
     } catch (error) {
       // console.error('Error making API request:', error);
@@ -373,13 +385,11 @@ export async function rampUp(repositoryUrl: string): Promise<number> {
 
     const codebaseSize = await getDirectorySize(localDir, readmePaths.find(p => fs.existsSync(p)));
 
-    const ratio = Math.log(readmeSize + 1) / Math.log(codebaseSize + 1);
-
-
+    var ratio = Math.log(readmeSize + 1) / Math.log(codebaseSize + 1);
 
     tempDir.removeCallback();
 
-    return ratio;
+    return parseFloat(ratio.toFixed(1));
   } catch (error) {
     if (error instanceof Error) {
       // console.error('Error analyzing repository:', error.message);
