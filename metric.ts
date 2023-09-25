@@ -5,15 +5,10 @@ const { clone } = require('isomorphic-git');
 const fs = require('fs');
 const http = require('isomorphic-git/http/node');
 const tmp = require('tmp');
-// Extracting environment variables
 const logLevels = ['error', 'info', 'debug'];
 const logLevel = logLevels[Number(process.env.LOG_LEVEL) || 0];
 const logFile = process.env.LOG_FILE;
 const token = process.env.GITHUB_TOKEN;
-
-// Check if the necessary environment variables are set
-
-
 const logger = winston.createLogger({
     level: logLevel,
     format: winston.format.simple(),
@@ -33,13 +28,9 @@ if (!logFile || !logFile.trim()) {
 } else if (!fs.existsSync(logFile)) {
   fs.writeFileSync(logFile, '');
 }
-
-// Authenticate with GitHub
 const headers = {
   Authorization: `Bearer ${token}`,
 };
-
-
 
 export async function busFactor(repositoryUrl: string) {
   try {
@@ -47,13 +38,10 @@ export async function busFactor(repositoryUrl: string) {
     const repositoryData = repositoryResponse.data;
     const [, , , user, repo] = repositoryUrl.split('/');
 
-    // Directory name based on user and repo
     const dirName = `${user}_${repo}`;
     if (!fs.existsSync(dirName)) {
       fs.mkdirSync(dirName);
     }
-
-    // Save repository data
     const repoFilename = path.join(dirName, 'repositoryData.json');
     fs.writeFileSync(repoFilename, JSON.stringify(repositoryData, null, 2));
 
@@ -65,8 +53,6 @@ export async function busFactor(repositoryUrl: string) {
     const contributorsFilename = path.join(dirName, 'contributorsData.json');
     fs.writeFileSync(contributorsFilename, JSON.stringify(contributorsData, null, 2));
 
-
-
     contributorsData.forEach((contributor: any) => {
       totalCommits += contributor.contributions;
     });
@@ -74,8 +60,6 @@ export async function busFactor(repositoryUrl: string) {
     const significantContributors = contributorsData.filter(
       (contributor: any) => (contributor.contributions / totalCommits) * 100 > 5
     );
-
-    // console.log("BusFactor:", significantContributors.length);
     var sigLength = significantContributors.length;
     if(sigLength > 10) {
       return 1;
@@ -84,7 +68,6 @@ export async function busFactor(repositoryUrl: string) {
       return parseFloat((sigLength / 10).toFixed(1)) ;
     }
   } catch (error: any) {
-    // console.error('Error:', error.message);
     logger.error('Error:', error.message);
     return -1;  // or throw the error if you want to handle it outside this function
   }
@@ -94,10 +77,7 @@ export async function license(repositoryUrl: string) {
   try {
 
     const licenseUrl = `${repositoryUrl}/license`;
-    // console.log("licenseUrl", licenseUrl);
     const LicenseResponse = await axios.get(licenseUrl, { headers });
-    // console.log("LicenseResponse", LicenseResponse);
-
     const [, , , user, repo] = repositoryUrl.split('/');
     const dirName = `${user}_${repo}`;
     if (!fs.existsSync(dirName)) {
@@ -111,20 +91,15 @@ export async function license(repositoryUrl: string) {
     };
 
     fs.writeFileSync(licenseFilename, JSON.stringify(sanitizedResponse, null, 2));
-
-
     if (LicenseResponse.data && LicenseResponse.data.license) {
-      // console.log('License:', LicenseResponse.data.license.name);
       return 1;
     } else {
-      // console.log('No license found');
       return 0;
     }
 
   } catch (error: any) {
     if (error.response) {
       if (error.response.status === 404) {
-        // console.log('No license found');
         const [, , , user, repo] = repositoryUrl.split('/');
         const dirName = `${user}_${repo}`;
         if (!fs.existsSync(dirName)) {
@@ -138,12 +113,10 @@ export async function license(repositoryUrl: string) {
         fs.writeFileSync(licenseFilename, JSON.stringify(sanitizedResponse, null, 2));
         return 0;
       } else {
-        // console.log(`Unexpected response status: ${error.response.status}`);
         logger.error(`Unexpected response status: ${error.response.status}`);
         return -1;
       }
     } else {
-      // console.error('Error:', error.message);
       logger.error('Error:', error.message);
       return -1;
     }
@@ -282,7 +255,7 @@ export async function responsiveMaintainer(repositoryUrl: string) {
 
   return await fetchAllIssues();
 }
-function timeoutPromise(ms: number): Promise<void> {
+export function timeoutPromise(ms: number): Promise<void> {
   return new Promise((_, reject) => {
     setTimeout(() => {
       reject(new Error(`Operation timed out after ${ms} milliseconds`));
@@ -290,7 +263,7 @@ function timeoutPromise(ms: number): Promise<void> {
   });
 }
 
-async function getFileSize(filePath: string): Promise<number> {
+export async function getFileSize(filePath: string): Promise<number> {
   // console.log("Getting file size");
   try {
     const stats = await fs.promises.stat(filePath);
@@ -303,7 +276,7 @@ async function getFileSize(filePath: string): Promise<number> {
   
 }
 
-async function getDirectorySize(directory: string, excludeFile?: string): Promise<number> {
+export async function getDirectorySize(directory: string, excludeFile?: string): Promise<number> {
   // console.log("Getting directory size");
   const files = await fs.promises.readdir(directory);
   let size = 0;
@@ -373,6 +346,7 @@ export async function rampUp(repositoryUrl: string): Promise<number> {
   try {
     const tempDir = tmp.dirSync({ unsafeCleanup: true, prefix: 'temp-' });
     const localDir = await cloneRepository(repositoryUrl); // Call cloneRepository instead of rampUp
+    console.log("Local Dir:", localDir);
 
     if (!localDir) {
       throw new Error('Failed to clone repository');
@@ -387,18 +361,19 @@ export async function rampUp(repositoryUrl: string): Promise<number> {
     let readmeSize = 0;
     for (const readmePath of readmePaths) {
       try {
-        // console.log("Getting file size: ", readmePath);
+        console.log("Getting file size: ", readmePath);
         logger.debug("Getting file size: ", readmePath);
         readmeSize = await getFileSize(readmePath);
         break; // If a valid README file is found, exit the loop
       } catch (err) {
-        // console.error('Error getting README file size:', err);
         logger.error('Error getting README file size:', err);
         // File not found or another error. Continue to next possible README path
       }
     }
 
     const codebaseSize = await getDirectorySize(localDir, readmePaths.find(p => fs.existsSync(p)));
+    // console.log("Codebase Size:", codebaseSize);
+    // console.log("Readme Size:", readmeSize);
 
     var ratio = Math.log(readmeSize + 1) / Math.log(codebaseSize + 1);
 
