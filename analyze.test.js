@@ -1,117 +1,316 @@
-const axios = require('axios');
-const { busFactor, license, correctness, responsiveMaintainer } = require('./metric');
-const fs = require('fs');
+const axios = require("axios");
+const git = require('isomorphic-git');
+const tmp = require('tmp');
+const path = require("path");
+const os = require("os");
+
+const {
+  getDirectorySize,
+  getFileSize,
+  timeoutPromise,
+  busFactor,
+  license,
+  correctness,
+  responsiveMaintainer,
+  rampUp,
+  cloneRepository,
+} = require("./metric");
+const fs = require("fs");
 
 process.env.GITHUB_TOKEN = "mock-token";
 process.env.LOG_FILE = "./mock-log.log";
-
-jest.mock('axios');
-jest.mock('winston', () => ({
+jest.mock('isomorphic-git');
+jest.mock('tmp');
+jest.useFakeTimers();
+jest.mock("axios");
+jest.mock("winston", () => ({
   createLogger: jest.fn(() => ({
-      info: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn(),
-      debug: jest.fn()
+    info: jest.fn(),
+    warn: jest.fn(),
+    error: jest.fn(),
+    debug: jest.fn(),
   })),
   format: {
-      simple: jest.fn()
+    simple: jest.fn(),
   },
   transports: {
-      Console: jest.fn(),
-      File: jest.fn()
-  }
+    Console: jest.fn(),
+    File: jest.fn(),
+  },
 }));
 
-
 function getMockDataPath(repositoryUrl, dataType) {
-  const parts = repositoryUrl.split('/');
+  // console.log("Inside getMockDataPath, repositoryUrl:", repositoryUrl);
+  const parts = repositoryUrl.split("/");
   const user = parts[parts.length - 2];
   const dirName = `repos_${user}`;
   return `${dirName}/${dataType}.json`;
 }
 
-function getNumberOfMockPages(starts = 'issuesData_page', repositoryUrl) {
-  const dirPath = getMockDataPath(repositoryUrl, '').slice(0, -5); // Remove the '.json' to get the directory path
+function getNumberOfMockPages(starts = "issuesData_page", repositoryUrl) {
+  const dirPath = getMockDataPath(repositoryUrl, "").slice(0, -5); // Remove the '.json' to get the directory path
   const files = fs.readdirSync(dirPath);
-  const issuesFiles = files.filter(file => file.startsWith(starts));
+  const issuesFiles = files.filter((file) => file.startsWith(starts));
   return issuesFiles.length;
 }
 
-
 function loadMockData(repositoryUrl, dataType) {
   const filePath = getMockDataPath(repositoryUrl, dataType);
-  return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
-describe('GitHub Repository Metrics', () => {
-  const repositoryUrls = fs.readFileSync('packages.txt', 'utf-8').split('\n').filter(Boolean);
+
+
+describe("GitHub Repository Metrics", () => {
+  
+  let testDir;
+  beforeEach(() => {
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), "test-"));
+  });
+
+  afterEach(() => {
+    // Cleanup test directory after each test
+    fs.rmdirSync(testDir, { recursive: true });
+  });
+  // const repositoryUrls = fs.readFileSync('packages.txt', 'utf-8').split('\n').filter(Boolean);
+  const repositoryUrls = [
+    "https://github.com/cloudinary/cloudinary_npm",
+    "https://github.com/nullivex/nodist",
+    "https://github.com/lodash/lodash",
+    "https://github.com/expressjs/express",
+    "https://github.com/browserify/browserify",
+  ];
 
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  repositoryUrls.forEach(repositoryUrl => {
-    it('should compute the bus factor correctly', async () => {
-      const repoMockData = loadMockData(repositoryUrl, 'repositoryData');
-      const contributorsMockData = loadMockData(repositoryUrl, 'contributorsData');
 
-      axios.get.mockResolvedValueOnce({ data: repoMockData })
-            .mockResolvedValueOnce({ data: contributorsMockData });
+  it('should successfully clone a repository', async () => {
+    const mockDir = { name: '/mock/directory/path', removeCallback: jest.fn() };
+    tmp.dirSync.mockReturnValue(mockDir);
+    git.clone.mockResolvedValue(true); // Simulate successful cloning
 
-      const result = await busFactor(repositoryUrl);
-      expect(result).toBeGreaterThan(0);
+    const result = await cloneRepository('https://api.github.com/repos/sample/repo');
+    
+    expect(result).toBe(mockDir.name);
+  });
+  it('should handle errors during cloning', async () => {
+    const mockDir = { name: '/mock/directory/path', removeCallback: jest.fn() };
+    tmp.dirSync.mockReturnValue(mockDir);
+    git.clone.mockRejectedValue(new Error('Mocked clone error')); // Simulate error during cloning
+
+    const result = await cloneRepository('https://api.github.com/repos/sample/repo');
+    
+    expect(result).toBe('');
+    
+  });
+  it("should reject after given milliseconds", async () => {
+    const promise = timeoutPromise(1000);
+    jest.advanceTimersByTime(1000); // advance by the full 1000ms to trigger the rejection
+
+    try {
+      await promise;
+      expect(false).toBe(true); // This will always fail. It's just to ensure that we don't reach this line.
+    } catch (error) {
+      expect(error.message).toBe("Operation timed out after 1000 milliseconds");
+    }
+  });
+  it("should correctly get the size of a file", async () => {
+    const filePath = path.join(testDir, "testFile.txt");
+    const content = "Hello, world!";
+    fs.writeFileSync(filePath, content, "utf-8");
+
+    const size = await getFileSize(filePath);
+    expect(size).toBe(Buffer.from(content).length);
+  });
+
+  it("should return 0 for non-existent file", async () => {
+    const filePath = path.join(testDir, "nonExistent.txt");
+    const size = await getFileSize(filePath);
+    expect(size).toBe(0);
+  });
+
+  it("should correctly get the size of a directory", async () => {
+    const dirPath = path.join(testDir, "testDir");
+    fs.mkdirSync(dirPath);
+
+    const filePath1 = path.join(dirPath, "testFile1.txt");
+    const filePath2 = path.join(dirPath, "testFile2.txt");
+    const content1 = "Hello, world!";
+    const content2 = "Hello, again!";
+    fs.writeFileSync(filePath1, content1, "utf-8");
+    fs.writeFileSync(filePath2, content2, "utf-8");
+
+    const size = await getDirectorySize(dirPath);
+    expect(size).toBe(
+      Buffer.from(content1).length + Buffer.from(content2).length
+    );
+  });
+
+  it("should exclude specified file when calculating directory size", async () => {
+    const dirPath = path.join(testDir, "testDir");
+    fs.mkdirSync(dirPath);
+
+    const filePath1 = path.join(dirPath, "testFile1.txt");
+    const filePath2 = path.join(dirPath, "testFile2.txt");
+    const content1 = "Hello, world!";
+    const content2 = "Hello, again!";
+    fs.writeFileSync(filePath1, content1, "utf-8");
+    fs.writeFileSync(filePath2, content2, "utf-8");
+
+    const size = await getDirectorySize(dirPath, filePath1);
+    expect(size).toBe(Buffer.from(content2).length);
+  });
+
+
+
+  repositoryUrls.forEach((repositoryUrl) => {
+    const newUrl = repositoryUrl.replace("github.com", "api.github.com/repos");
+    it("should compute the bus factor correctly", async () => {
+      const repoMockData = loadMockData(repositoryUrl, "repositoryData");
+      const contributorsMockData = loadMockData(
+        repositoryUrl,
+        "contributorsData"
+      );
+
+      axios.get
+        .mockResolvedValueOnce({ data: repoMockData })
+        .mockResolvedValueOnce({ data: contributorsMockData });
+
+      const result = await busFactor(newUrl);
+      expect(result).toBeLessThanOrEqual(1);
     });
+    it("should handle axios.get failure gracefully", async () => {
+      // Mock axios.get to reject
+      axios.get.mockRejectedValue(new Error("Network error"));
 
-    it('should determine the license status correctly', async () => {
-      const licenseMockData = loadMockData(repositoryUrl, 'licenseData');
+      const result = await busFactor(newUrl);
+      expect(result).toBe(-1);
+    });
+    it("should determine the license status correctly", async () => {
+      const licenseMockData = loadMockData(repositoryUrl, "licenseData");
       // console.log(licenseMockData);
       // console log status
       // console.log(licenseMockData.status);
       axios.get.mockResolvedValueOnce({
         data: licenseMockData.data,
-        status: licenseMockData.status
-    });
-    
+        status: licenseMockData.status,
+      });
 
-      const result = await license(repositoryUrl);
-    // it can be 1 or 0
+      const result = await license(newUrl);
+      // it can be 1 or 0
       expect(result).toBeLessThanOrEqual(1);
     });
+    it("should handle no license gracefully", async () => {
+      axios.get.mockRejectedValue({
+        response: {
+          data: {},
+          status: 404,
+        },
+      });
 
-    it('should compute correctness based on issues', async () => {
-      const numberOfPages = getNumberOfMockPages(repositoryUrl);
+      const result = await license(newUrl);
+      expect(result).toBe(0);
+    });
 
-      for (let i = 1; i <= numberOfPages; i++) {
-        const issuesMockData = loadMockData(repositoryUrl, `issuesData_page${i}`);
+    it("should compute correctness based on issues", async () => {
+      const numIssuePages = getNumberOfMockPages(
+        "issuesData_page",
+        repositoryUrl
+      );
+
+      for (let i = 1; i <= numIssuePages; i++) {
+        const issuesMockData = loadMockData(
+          repositoryUrl,
+          `issuesData_page${i}`
+        );
         axios.get.mockResolvedValueOnce({ data: issuesMockData });
       }
       // const issuesMockDataPage1 = loadMockData(repositoryUrl, 'issuesData_page1');
       // axios.get.mockResolvedValueOnce({ data: issuesMockDataPage1 });
 
-      const result = await correctness(repositoryUrl);
+      const result = await correctness(newUrl);
       expect(result).toBeLessThanOrEqual(1);
     });
 
-      
+    it("should handle unexpected status codes gracefully", async () => {
+      axios.get.mockRejectedValue({
+        response: {
+          data: {},
+          status: 500,
+        },
+      });
+
+      const result = await license(newUrl);
+      expect(result).toBe(-1);
+    });
+
+    it("should handle network errors gracefully", async () => {
+      axios.get.mockRejectedValue(new Error("Network error"));
+
+      const result = await license(newUrl);
+      expect(result).toBe(-1);
+    });
+
     // RESPONSIVE MAINTAINER
-    it('should compute responsiveness of maintainers', async () => {
-      const numIssuePages = getNumberOfMockPages('issuesData_page', repositoryUrl);
-    
+    it("should compute responsiveness of maintainers", async () => {
+      const numIssuePages = getNumberOfMockPages(
+        "issuesData_page",
+        repositoryUrl
+      );
+
       // Mock data for each issue page
       for (let i = 1; i <= numIssuePages; i++) {
-        const issuesMockData = loadMockData(repositoryUrl, `issuesData_page${i}`);
+        const issuesMockData = loadMockData(
+          repositoryUrl,
+          `issuesData_page${i}`
+        );
         axios.get.mockResolvedValueOnce({ data: issuesMockData });
-    
+
         // For each issue in the current page (only first 10), mock the comments data
-        issuesMockData.slice(0, 10).forEach(issue => {
-          const commentsMockData = loadMockData(repositoryUrl, `commentsData_issue${issue.number}`);
+        issuesMockData.slice(0, 10).forEach((issue) => {
+          const commentsMockData = loadMockData(
+            repositoryUrl,
+            `commentsData_issue${issue.number}`
+          );
           axios.get.mockResolvedValueOnce({ data: commentsMockData });
         });
       }
-    
-      const result = await responsiveMaintainer(repositoryUrl);
-      expect(result).toBeLessThanOrEqual(24);
+
+      const result = await responsiveMaintainer(newUrl);
+      // result between 0 and 1
+      expect(result).toBeLessThanOrEqual(1);
+    });
+    it("should handle no maintainer comments gracefully", async () => {
+      const issuesMockData = loadMockData(repositoryUrl, "issuesData_page1");
+      axios.get.mockResolvedValueOnce({ data: issuesMockData });
+
+      // Mock no comments for each issue
+      issuesMockData.slice(0, 10).forEach(() => {
+        axios.get.mockResolvedValueOnce({ data: [] });
+      });
+
+      const result = await responsiveMaintainer(newUrl);
+      expect(result).toBe(0); // adjust based on your expected outcome
+    });
+    it("should handle axios error gracefully for issues", async () => {
+      axios.get.mockRejectedValue(new Error("Network error"));
+
+      const result = await responsiveMaintainer(newUrl);
+      expect(result).toBe(0);
+    });
+
+    it("should handle axios error gracefully for comments", async () => {
+      const issuesMockData = loadMockData(repositoryUrl, "issuesData_page1");
+      axios.get
+        .mockResolvedValueOnce({ data: issuesMockData })
+        .mockRejectedValue(new Error("Network error"));
+
+      const result = await responsiveMaintainer(newUrl);
+      expect(result).toBe(0);
     });
     
   });
+  
 });

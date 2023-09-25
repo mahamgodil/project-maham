@@ -46,27 +46,39 @@ elif args.command == 'install':
     subprocess.run([ts_node_bin_path, './install.ts'])
 
 elif args.command == 'test':
+    # Run the tests
+    # subprocess.run(['npm', 'test'], env=os.environ)
     subprocess.run(['npm', 'test', '--silent'], env=os.environ)
+
+    # Load the test results from the output file
     with open('test_output.json', 'r') as f:
         test_results = json.load(f)
 
-# Sample Output (to Stdout):
+    # Load the coverage data
+    with open('coverage/coverage-final.json', 'r') as f:
+        coverage_data = json.load(f)
 
-# Total: 10
-# Passed: 9
-# Coverage: 90%
-# 9/10 test cases passed. 90% line coverage achieved.
+    # Find the key for metric.ts in the coverage data
+    metric_key = next((key for key in coverage_data if key.endswith('metric.ts')), None)
 
-    total_tests = test_results['numTotalTests']
-    passed_tests = test_results['numPassedTests']
-    coverage = (passed_tests / total_tests) * 100
-    # print(f"\nTotal: {total_tests}")
-    # print(f"Passed: {passed_tests}")
-    # print(f"Coverage: {coverage:.2f}%")
-    print(f"{passed_tests}/{total_tests} test cases passed. {int(coverage)}% line coverage achieved.", end='')
+    if metric_key:
+        metric_data = coverage_data[metric_key]
+        total_lines = len(metric_data.get('s', {}))
+        covered_lines = sum(1 for value in metric_data.get('s', {}).values() if value > 0)
 
+        coverage = 0
+        if total_lines > 0:
+            coverage = (covered_lines / total_lines) * 100
+
+        total_tests = test_results['numTotalTests']
+        passed_tests = test_results['numPassedTests']
+
+        print(f"{passed_tests}/{total_tests} test cases passed. {int(coverage)}% line coverage achieved.")
+    else:
+        print(f"Error: Couldn't find coverage data for metric.ts")
 
     exit(0)
+
 
 
 else:
