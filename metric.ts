@@ -69,7 +69,7 @@ export async function busFactor(repositoryUrl: string) {
     }
   } catch (error: any) {
     logger.error('Error:', error.message);
-    return -1;  // or throw the error if you want to handle it outside this function
+    return -1;
   }
 }
 
@@ -162,14 +162,12 @@ export async function correctness(repositoryUrl: string) {
         return await fetchAllIssues(nextPage);
       } else {
         const bugPercentage = (totalClosedIssues / totalIssues);
-        // console.log(`Correctness: ${bugPercentage.toFixed(5)}`);
         logger.info(`Correctness: ${bugPercentage.toFixed(5)}`);
         return bugPercentage;
       }
     } catch (error) {
-      // console.error('Error making API request:', error);
       logger.error('Error making API request:', error);
-      return 0; // You might want to decide on a more appropriate default value
+      return 0;
     }
   }
 
@@ -217,7 +215,6 @@ export async function responsiveMaintainer(repositoryUrl: string) {
         }
       }
     } catch (error) {
-      // console.error('Error fetching comments for issue:', error);
       logger.error('Error fetching comments for issue:', error);
     }
   }
@@ -237,7 +234,6 @@ export async function responsiveMaintainer(repositoryUrl: string) {
         return await fetchAllIssues(nextPage);
       } else {
         const averageResponseTime = totalResponseTime / totalIssues / 100;
-        // console.log(`ResponsiveMaintainer: ${averageResponseTime}`);
         logger.info(`ResponsiveMaintainer: ${averageResponseTime}`);
         if(averageResponseTime > 10) {
           return 0;
@@ -247,9 +243,8 @@ export async function responsiveMaintainer(repositoryUrl: string) {
         }
       }
     } catch (error) {
-      // console.error('Error making API request:', error);
       logger.error('Error making API request:', error);
-      return 0; // You might want to decide on a more appropriate default value
+      return 0;
     }
   }
 
@@ -264,12 +259,10 @@ export function timeoutPromise(ms: number): Promise<void> {
 }
 
 export async function getFileSize(filePath: string): Promise<number> {
-  // console.log("Getting file size");
   try {
     const stats = await fs.promises.stat(filePath);
     return stats.size;
 } catch (error) {
-    // console.error(`Error processing file ${filePath}:`, error);
     logger.error(`Error processing file ${filePath}:`, error);
     return 0;
 }
@@ -277,17 +270,14 @@ export async function getFileSize(filePath: string): Promise<number> {
 }
 
 export async function getDirectorySize(directory: string, excludeFile?: string): Promise<number> {
-  // console.log("Getting directory size");
   const files = await fs.promises.readdir(directory);
   let size = 0;
 
   for (const file of files) {
-    // console.log("Getting file size");
     if (excludeFile && path.join(directory, file) === excludeFile) continue;
 
     const filePath = path.join(directory, file);
     const stats = await fs.promises.stat(filePath);
-    // console.log("Stats:", stats);
 
     if (stats.isDirectory()) {
       size += await getDirectorySize(filePath, excludeFile);
@@ -305,7 +295,6 @@ export async function cloneRepository(repositoryUrl: string): Promise<string> {
     const localDir = tempDir.name;
     const userAgent = 'UAgent';
     const newURL = repositoryUrl.replace('api.github.com/repos', 'github.com');
-    // console.log("Awaiting clone");
     logger.info("Awaiting clone");
 
     await Promise.race([
@@ -321,18 +310,12 @@ export async function cloneRepository(repositoryUrl: string): Promise<string> {
       }),
       timeoutPromise(10000)
     ]);
-    // console.log("Repository cloned to:", localDir);
-
-
-    // console.log("Cloned Repo");
     logger.info("Cloned Repo");
-    return localDir; // Return the local directory path where repo was cloned
+    return localDir;
   } catch (error) {
     if (error instanceof Error) {
-      // console.error('Error cloning repository:', error.message);
       logger.error('Error cloning repository:', error.message);
     } else {
-      // console.error('Error cloning repository:', error);
       logger.error('Error cloning repository:', error);
 
     }
@@ -345,8 +328,7 @@ export async function cloneRepository(repositoryUrl: string): Promise<string> {
 export async function rampUp(repositoryUrl: string): Promise<number> {
   try {
     const tempDir = tmp.dirSync({ unsafeCleanup: true, prefix: 'temp-' });
-    const localDir = await cloneRepository(repositoryUrl); // Call cloneRepository instead of rampUp
-    console.log("Local Dir:", localDir);
+    const localDir = await cloneRepository(repositoryUrl);
 
     if (!localDir) {
       throw new Error('Failed to clone repository');
@@ -361,20 +343,15 @@ export async function rampUp(repositoryUrl: string): Promise<number> {
     let readmeSize = 0;
     for (const readmePath of readmePaths) {
       try {
-        console.log("Getting file size: ", readmePath);
         logger.debug("Getting file size: ", readmePath);
         readmeSize = await getFileSize(readmePath);
-        break; // If a valid README file is found, exit the loop
+        break;
       } catch (err) {
         logger.error('Error getting README file size:', err);
-        // File not found or another error. Continue to next possible README path
       }
     }
 
     const codebaseSize = await getDirectorySize(localDir, readmePaths.find(p => fs.existsSync(p)));
-    // console.log("Codebase Size:", codebaseSize);
-    // console.log("Readme Size:", readmeSize);
-
     var ratio = Math.log(readmeSize + 1) / Math.log(codebaseSize + 1);
 
     tempDir.removeCallback();
@@ -382,10 +359,8 @@ export async function rampUp(repositoryUrl: string): Promise<number> {
     return parseFloat(ratio.toFixed(1));
   } catch (error) {
     if (error instanceof Error) {
-      // console.error('Error analyzing repository:', error.message);
       logger.error('Error analyzing repository:', error.message);
     } else {
-      // console.error('Error analyzing repository:', error);
       logger.error('Error analyzing repository:', error);
     }
     return -1;
