@@ -22,10 +22,8 @@ else:
     args = parser.parse_args()
 
 if not is_ts_node_installed():
-    # print("ts-node is not installed. Installing...")
     subprocess.run(['npm', 'install', 'ts-node'])
     if not is_ts_node_installed():
-        # print("Failed to install ts-node. Exiting.")
         exit(1)
 
 ts_node_bin_path = os.path.join('.', 'node_modules', '.bin', 'ts-node')
@@ -33,32 +31,23 @@ ts_node_bin_path = os.path.join('.', 'node_modules', '.bin', 'ts-node')
 
 if args.file and not args.command:
     if os.path.isfile(args.file):
-        # print(f"Analyzing {args.file}...")
-        # subprocess.run([ts_node_bin_path, './analyze.ts', 'analyzeDependencies', args.file])
         subprocess.run([ts_node_bin_path, './analyze.ts', args.file], env=os.environ)
 
 
     else:
-        # print(f"Error: {args.file} does not exist.")
         exit(1)        
 elif args.command == 'install':
-    # print("Installing dependencies...")
     subprocess.run([ts_node_bin_path, './install.ts'])
 
 elif args.command == 'test':
-    # Run the tests
-    # subprocess.run(['npm', 'test'], env=os.environ)
     subprocess.run(['npm', 'test', '--silent'], env=os.environ)
 
-    # Load the test results from the output file
     with open('test_output.json', 'r') as f:
         test_results = json.load(f)
 
-    # Load the coverage data
     with open('coverage/coverage-final.json', 'r') as f:
         coverage_data = json.load(f)
 
-    # Find the key for metric.ts in the coverage data
     metric_key = next((key for key in coverage_data if key.endswith('metric.ts')), None)
 
     if metric_key:

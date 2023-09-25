@@ -1,11 +1,10 @@
-const { rampUp } = require('./metric');  // Adjust the path accordingly
-const { cloneRepository, getFileSize, getDirectorySize } = require('./metric');  // Adjust the path
+const { rampUp } = require('./metric');
+const { cloneRepository, getFileSize, getDirectorySize } = require('./metric');
 const git = require('isomorphic-git');
 const tmp = require('tmp');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
- // If you have a logger, import it
 
 jest.mock('isomorphic-git');
 jest.mock('./metric', () => ({
@@ -36,19 +35,14 @@ describe("rampUp function tests", () => {
 
         cloneRepository.mockResolvedValue(mockDir.name);
 
-        // create README.md file in the mock directory
         const readmePath = path.join(mockDir.name, 'README.md');
         fs.writeFileSync(readmePath, 'Hello World!');
 
-        // cloneRepository = jest.fn().mockResolvedValue(mockDir.name);
         getFileSize = jest.fn().mockResolvedValue(10);
         getDirectorySize = jest.fn().mockResolvedValue(100);
 
         const readmeSizeCheck = await getFileSize(readmePath);
-        // console.log('Mocked Readme Size:', readmeSizeCheck);
-
         const codebaseSizeCheck = await getDirectorySize(mockDir.name);
-        // console.log('Mocked Codebase Size:', codebaseSizeCheck);
 
 
         
@@ -57,7 +51,7 @@ describe("rampUp function tests", () => {
         console.log(result);
         result = 1
         
-        const expectedValue = Math.log(11) / Math.log(101); // Calculated based on the mocks
+        const expectedValue = Math.log(11) / Math.log(101);
         expect(result).toBeCloseTo(1);
     });
 });
