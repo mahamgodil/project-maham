@@ -1,4 +1,3 @@
-
 Phase 1 Project
 =======
 The GitHub Metrics CLI is a versatile command-line tool designed for assessing and analyzing software repositories hosted on GitHub. This CLI empowers users to effortlessly evaluate key aspects of GitHub projects, including code correctness, responsiveness of maintainers, licensing, bus factor, and more. It will install dependencies, calculate metrics for a list of repositories, and perform automated grading.
