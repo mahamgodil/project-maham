@@ -1,5 +1,5 @@
 https://github.com/cloudinary/cloudinary_npm
 https://github.com/nullivex/nodist
 https://github.com/lodash/lodash
-https://www.npmjs.com/package/express
-https://www.npmjs.com/package/browserify
+https://github.com/expressjs/express
+https://github.com/browserify/browserify
