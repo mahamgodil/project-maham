@@ -40,7 +40,6 @@ jest.mock("winston", () => ({
 }));
 
 function getMockDataPath(repositoryUrl, dataType) {
-  // console.log("Inside getMockDataPath, repositoryUrl:", repositoryUrl);
   const parts = repositoryUrl.split("/");
   const user = parts[parts.length - 2];
   const dirName = `repos_${user}`;
@@ -48,7 +47,7 @@ function getMockDataPath(repositoryUrl, dataType) {
 }
 
 function getNumberOfMockPages(starts = "issuesData_page", repositoryUrl) {
-  const dirPath = getMockDataPath(repositoryUrl, "").slice(0, -5); // Remove the '.json' to get the directory path
+  const dirPath = getMockDataPath(repositoryUrl, "").slice(0, -5);
   const files = fs.readdirSync(dirPath);
   const issuesFiles = files.filter((file) => file.startsWith(starts));
   return issuesFiles.length;
@@ -69,10 +68,8 @@ describe("GitHub Repository Metrics", () => {
   });
 
   afterEach(() => {
-    // Cleanup test directory after each test
     fs.rmdirSync(testDir, { recursive: true });
   });
-  // const repositoryUrls = fs.readFileSync('packages.txt', 'utf-8').split('\n').filter(Boolean);
   const repositoryUrls = [
     "https://github.com/cloudinary/cloudinary_npm",
     "https://github.com/nullivex/nodist",
@@ -89,7 +86,7 @@ describe("GitHub Repository Metrics", () => {
   it('should successfully clone a repository', async () => {
     const mockDir = { name: '/mock/directory/path', removeCallback: jest.fn() };
     tmp.dirSync.mockReturnValue(mockDir);
-    git.clone.mockResolvedValue(true); // Simulate successful cloning
+    git.clone.mockResolvedValue(true);
 
     const result = await cloneRepository('https://api.github.com/repos/sample/repo');
     
@@ -98,7 +95,7 @@ describe("GitHub Repository Metrics", () => {
   it('should handle errors during cloning', async () => {
     const mockDir = { name: '/mock/directory/path', removeCallback: jest.fn() };
     tmp.dirSync.mockReturnValue(mockDir);
-    git.clone.mockRejectedValue(new Error('Mocked clone error')); // Simulate error during cloning
+    git.clone.mockRejectedValue(new Error('Mocked clone error'));
 
     const result = await cloneRepository('https://api.github.com/repos/sample/repo');
     
@@ -107,11 +104,11 @@ describe("GitHub Repository Metrics", () => {
   });
   it("should reject after given milliseconds", async () => {
     const promise = timeoutPromise(1000);
-    jest.advanceTimersByTime(1000); // advance by the full 1000ms to trigger the rejection
+    jest.advanceTimersByTime(1000);
 
     try {
       await promise;
-      expect(false).toBe(true); // This will always fail. It's just to ensure that we don't reach this line.
+      expect(false).toBe(true);
     } catch (error) {
       expect(error.message).toBe("Operation timed out after 1000 milliseconds");
     }
@@ -190,16 +187,12 @@ describe("GitHub Repository Metrics", () => {
     });
     it("should determine the license status correctly", async () => {
       const licenseMockData = loadMockData(repositoryUrl, "licenseData");
-      // console.log(licenseMockData);
-      // console log status
-      // console.log(licenseMockData.status);
       axios.get.mockResolvedValueOnce({
         data: licenseMockData.data,
         status: licenseMockData.status,
       });
 
       const result = await license(newUrl);
-      // it can be 1 or 0
       expect(result).toBeLessThanOrEqual(1);
     });
     it("should handle no license gracefully", async () => {
@@ -227,9 +220,6 @@ describe("GitHub Repository Metrics", () => {
         );
         axios.get.mockResolvedValueOnce({ data: issuesMockData });
       }
-      // const issuesMockDataPage1 = loadMockData(repositoryUrl, 'issuesData_page1');
-      // axios.get.mockResolvedValueOnce({ data: issuesMockDataPage1 });
-
       const result = await correctness(newUrl);
       expect(result).toBeLessThanOrEqual(1);
     });
@@ -253,14 +243,12 @@ describe("GitHub Repository Metrics", () => {
       expect(result).toBe(-1);
     });
 
-    // RESPONSIVE MAINTAINER
     it("should compute responsiveness of maintainers", async () => {
       const numIssuePages = getNumberOfMockPages(
         "issuesData_page",
         repositoryUrl
       );
 
-      // Mock data for each issue page
       for (let i = 1; i <= numIssuePages; i++) {
         const issuesMockData = loadMockData(
           repositoryUrl,
@@ -268,7 +256,6 @@ describe("GitHub Repository Metrics", () => {
         );
         axios.get.mockResolvedValueOnce({ data: issuesMockData });
 
-        // For each issue in the current page (only first 10), mock the comments data
         issuesMockData.slice(0, 10).forEach((issue) => {
           const commentsMockData = loadMockData(
             repositoryUrl,
@@ -279,20 +266,18 @@ describe("GitHub Repository Metrics", () => {
       }
 
       const result = await responsiveMaintainer(newUrl);
-      // result between 0 and 1
       expect(result).toBeLessThanOrEqual(1);
     });
     it("should handle no maintainer comments gracefully", async () => {
       const issuesMockData = loadMockData(repositoryUrl, "issuesData_page1");
       axios.get.mockResolvedValueOnce({ data: issuesMockData });
 
-      // Mock no comments for each issue
       issuesMockData.slice(0, 10).forEach(() => {
         axios.get.mockResolvedValueOnce({ data: [] });
       });
 
       const result = await responsiveMaintainer(newUrl);
-      expect(result).toBe(0); // adjust based on your expected outcome
+      expect(result).toBe(0);
     });
     it("should handle axios error gracefully for issues", async () => {
       axios.get.mockRejectedValue(new Error("Network error"));
